@@ -490,9 +490,7 @@ include 'database.php';
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script> 
     <script>
-	  $(function() {
-	    $( "#tabs" ).tabs();
-	  });
+	  
 	  $('li.dropdown.mega-dropdown a').on('click', function (event) {
     	$(this).parent().toggleClass('open');
 	  });
