@@ -2,13 +2,14 @@
 include 'database.php';
 if (isset($_POST['signUpButton']))
 {
-	
-	
-	if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
-	{
-		mysqli_query($link, "INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values($_POST[username],$_POST[email],$_POST[firstname],$_POST[lastname],$_POST[about],$_POST[password],1,$_FILES[image][name]");
-		
-	}
+
+
+if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
+{
+$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values(".$_POST['username'].",".$_POST['email'].",".$_POST['firstname'].",".$_POST['lastname'].",".$_POST['about'].",".$_POST['password'].",1,".$_FILES['image']['name'].")";
+mysqli_query($link, $sql);
+
+}
 }
 ?>
 <!DOCTYPE html>
