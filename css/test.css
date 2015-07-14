@@ -11,6 +11,7 @@
 
 .modal-margin{
 	margin-top:10% !important;
+	margin-left:-25% !important;
 	width:50% !important;
 }
 
@@ -68,3 +69,10 @@
     }
 }
 
+#button{
+    position: relative;
+    left:-1px;
+    background-color:#337ab7;
+    color:white;
+    border-color:#2e6da4;
+    }

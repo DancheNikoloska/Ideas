@@ -53,7 +53,7 @@ include 'database.php';
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#about-us">About Us</a></li>
                         <li class="dropdown mega-dropdown">
-		                   <a href="#" class="dropdown-toggle"  ><b>Login</b> <span class="caret"></span></a>
+		                   <a href="#" class="dropdown-toggle">Најава/Регистрација</a>
 							<ul id="login-dp" class="dropdown-menu">
 								<li>
 								   <div class="row">
@@ -67,12 +67,28 @@ include 'database.php';
 									
 									  <!-- Tab panes -->
 									  <div class="tab-content">
-									    <div role="tabpanel" class="tab-pane active" id="Login">
-                                             Ime<input class="form-control" type="text">
-                                             Prezime<input class="form-control" type="text">
+									    <div role="tabpanel" class="tab-pane active" id="Login"><br />
+									    	<form action="#" method="post">
+                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
+                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
+                                             <div class="center"><input class="btn-primary" type="button" value="Најави се" name="loginButton"/></div><br />
+                                             </form>
                                         </div>
-									    <div role="tabpanel" class="tab-pane" id="Register">
-									    	NASNDNSDASD
+									    <div role="tabpanel" class="tab-pane" id="Register"><br />
+									    	<form action="#" method="post" enctype="multipart/form-data">
+									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име"><br />
+                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме"><br />
+                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име"><br />
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка"><br />
+                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
+                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
+											 <input type="text" id="fileName" readonly="readonly" >
+											 <div class="file_input_div" style="display: inline;" placeholder="Избери слика">
+											 <input type="button" id="button" value="Слика"/>
+											 <input type="file" style="opacity:0; position:relative; left:-40px;"  onchange="javascript: document.getElementById ('fileName').value = this.value"/>
+											 </div>
+                                             <div class="center"><input class="btn-primary" type="button" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             </form>
 									    </div>
 									  </div>
 									 </div>
