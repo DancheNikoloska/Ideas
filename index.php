@@ -1,5 +1,15 @@
 <?php
 include 'database.php';
+if (isset($_POST['signUpButton']))
+{
+	
+	
+	if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
+	{
+		mysqli_query($link, "INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values($_POST[username],$_POST[email],$_POST[firstname],$_POST[lastname],$_POST[about],$_POST[password],1,$_FILES[image][name]");
+		
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +87,7 @@ include 'database.php';
 									    	<form action="#" method="post">
                                              <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
                                              <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
-                                             <div class="center"><input class="btn-primary" type="button" value="Најави се" name="loginButton"/></div><br />
+                                             <div class="center"><input class="btn-primary" type="submit" value="Најави се" name="loginButton"/></div><br />
                                              </form>
                                         </div>
 									    <div role="tabpanel" class="tab-pane" id="Register"><br />
@@ -90,8 +100,8 @@ include 'database.php';
                                              <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
                                              <input readonly="true" id="fileText">
 											 <button class="btn btn-info" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
-												<input type="file" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
-                                             <div class="center"><input class="btn btn-primary" type="button" value="Регистрирај се" name="signUpButton"/></div><br />
+												<input type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
+                                             <div class="center"><input class="btn btn-primary" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
                                              </form>
 									    </div>
 									  </div>
@@ -108,7 +118,7 @@ include 'database.php';
   	  <!-- Modal -->
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-margin">
-    <div class="modal-content">
+    <div class="modal-content" style="background-color:rgba(255,255,255,.9)">
         <br>
         <div class="bs-example bs-example-tabs">
             <ul id="myTab" class="nav nav-tabs">
@@ -119,7 +129,7 @@ include 'database.php';
       <div class="modal-body">
         <div id="myTabContent" class="tab-content">
      
-             <div class="box">
+             <div class="box" style="background-color:rgba(255,255,255,.05)">
                                
                 <div class="row">
                  
