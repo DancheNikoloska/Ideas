@@ -8,20 +8,22 @@ include 'database.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Xeon | OnePage Responsive Theme</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <title>Имам идеја</title>
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/test.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head><!--/head-->
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">
@@ -40,16 +42,100 @@ include 'database.php';
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
-                        <li><a href='#dodajideja'>Додај идеја</a></li>
+                        <li><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li>
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#about-us">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+			<ul id="login-dp" class="dropdown-menu">
+			
+			
                     </ul>
                 </div>
             </div>
         </div>
     </header><!--/#header-->
+    
+    <!-- Modal -->
+<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-margin">
+    <div class="modal-content">
+        <br>
+        <div class="bs-example bs-example-tabs">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active lead"><a href="#addIdea" data-toggle="tab" >Додај идеја</a></li>
+              
+            </ul>
+        </div>
+      <div class="modal-body">
+        <div id="myTabContent" class="tab-content">
+     
+             <div class="box">
+                               
+                <div class="row">
+                 
+				 <form class="form-horizontal">
+				 	 <div class="form-group">
+				    <label class="col-sm-2 control-label">Категорија</label>
+				    <div class="col-sm-10">
+				      <select>
+				      	<?php 
+				      	$query=mysqli_query($link, "select * from category");
+						while ($row=mysqli_fetch_assoc($query))
+						{
+						echo "<option>$row[Title]</option>";	
+						}
+				      	
+				      	?>
+				      </select>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Тема</label>
+				    <div class="col-sm-10">
+				      <input type="email" class="form-control" id="Tema">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">Опис</label>
+				    <div class="col-sm-10">
+				      <textarea class="form-control" id="opis"></textarea>
+				    </div>
+				  </div>
+				  
+				    <div class="form-group">
+				    <label class="col-sm-2 control-label">Технологии</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="tehnologii">
+				    </div>
+				  </div>
+				    <div class="form-group">
+				    <label class="col-sm-2 control-label">Клучни зборови</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="keywords">
+				    </div>
+				  </div>
+				 <br />
+				  <div class="form-group center">
+				    <div class="col-md-10 col-md-offset-1">
+				      <button type="submit" class="btn btn-info">Внеси</button>
+				       <button type="button" class="btn btn-danger" data-dismiss="modal">Откажи</button>
+				    </div>
+				  </div>
+				</form>
+              
+            </div> 
+        </div>
+        </div>
+       
+    </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!-- modalEnd -->
 
     <section id="main-slider" class="carousel">
         <div class="carousel-inner">
@@ -209,62 +295,7 @@ include 'database.php';
 	    <section >
         <div class="container">
             <div class="box">
-                <div class="center"><br />
-                  <h3>Додај идеја</h3>
-                </div><!--/.center-->   
                
-                <div class="row">
-                 
-				 <form class="form-horizontal">
-				 	 <div class="form-group">
-				    <label class="col-sm-2 control-label">Категорија</label>
-				    <div class="col-sm-10">
-				      <select>
-				      	<?php 
-				      	$query=mysqli_query($link, "select * from category");
-						while ($row=mysqli_fetch_assoc($query))
-						{
-						echo "<option>$row[Title]</option>";	
-						}
-				      	
-				      	?>
-				      </select>
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-2 control-label">Тема</label>
-				    <div class="col-sm-10">
-				      <input type="email" class="form-control" id="Tema">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-2 control-label">Опис</label>
-				    <div class="col-sm-10">
-				      <textarea class="form-control" id="opis"></textarea>
-				    </div>
-				  </div>
-				  
-				    <div class="form-group">
-				    <label class="col-sm-2 control-label">Технологии</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="tehnologii">
-				    </div>
-				  </div>
-				    <div class="form-group">
-				    <label class="col-sm-2 control-label">Клучни зборови</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="keywords">
-				    </div>
-				  </div>
-				 <br />
-				  <div class="form-group center">
-				    <div class="col-md-10 col-md-offset-1">
-				      <button type="submit" class="btn btn-danger">Внеси</button>
-				    </div>
-				  </div>
-				</form>
-                  
-                </div> 
             </div> 
         </div>
     </section><!--/#pricing-->
