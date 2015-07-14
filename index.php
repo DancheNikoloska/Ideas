@@ -33,7 +33,9 @@ include 'database.php';
 </head><!--/head-->
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">
+	
     <header id="header" role="banner">
+    	
         <div class="container">
             <div id="navbar" class="navbar navbar-default">
                 <div class="navbar-header">
@@ -46,14 +48,18 @@ include 'database.php';
                     <a class="navbar-brand" href="index.html"></a>
                 </div>
                 <div class="collapse navbar-collapse">
+                	
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
                         <li><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#about-us">About Us</a></li>
+                       
                         <li class="dropdown mega-dropdown">
+                        	
 		                   <a href="#" class="dropdown-toggle">Најава/Регистрација</a>
+		                   
 							<ul id="login-dp" class="dropdown-menu">
 								<li>
 								   <div class="row">
@@ -82,12 +88,10 @@ include 'database.php';
                                             <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка"><br />
                                              <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
                                              <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
-											 <input type="text" id="fileName" readonly="readonly" >
-											 <div class="file_input_div" style="display: inline;" placeholder="Избери слика">
-											 <input type="button" id="button" value="Слика"/>
-											 <input type="file" style="opacity:0; position:relative; left:-40px;"  onchange="javascript: document.getElementById ('fileName').value = this.value"/>
-											 </div>
-                                             <div class="center"><input class="btn-primary" type="button" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             <input readonly="true" id="fileText">
+											 <button class="btn btn-info" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
+												<input type="file" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
+                                             <div class="center"><input class="btn btn-primary" type="button" value="Регистрирај се" name="signUpButton"/></div><br />
                                              </form>
 									    </div>
 									  </div>
@@ -509,12 +513,14 @@ include 'database.php';
 	  
 	  $('li.dropdown.mega-dropdown a').on('click', function (event) {
     	$(this).parent().toggleClass('open');
+    
 	  });
 	  $('body').on('click', function (e) {
     	if (!$('li.dropdown.mega-dropdown').is(e.target) && $('li.dropdown.mega-dropdown').has(e.target).length === 0 && $('.open').has(e.target).length === 0) {
         	$('li.dropdown.mega-dropdown').removeClass('open');
     	}
 	  });
+	  
     </script>
 </body>
 </html>
