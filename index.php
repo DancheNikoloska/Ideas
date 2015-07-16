@@ -1,15 +1,83 @@
 <?php
 include 'database.php';
+session_start();
+if (!isset($_SESSION['user'])){
+$_SESSION['user']="";
+}
+
+//Registration
 if (isset($_POST['signUpButton']))
 {
-
-
+	$name=$_POST['name'];
+	$username=$_POST['username'];
+	$lastname=$_POST['lastname'];
+	$email=$_POST['email'];
+	$about=$_POST['about'];
+	$password=$_POST['password'];
+	$image=$_FILES['image']['name'];
+	$type=1;	
 if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
 {
-$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values(".$_POST['username'].",".$_POST['email'].",".$_POST['firstname'].",".$_POST['lastname'].",".$_POST['about'].",".$_POST['password'].",1,".$_FILES['image']['name'].")";
-mysqli_query($link, $sql);
-
+$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'$image')";
+if(mysqli_query($link, $sql)==false)
+echo mysqli_error($link);
+else {
+	{
+		echo "<div class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+	}
 }
+}
+}
+
+//Login
+if (isset($_POST['loginButton']))
+{
+	$u=$_POST['username1'];
+	$p=$_POST['password1'];
+	if (!empty($_POST['username1'])&&!empty($_POST['password1']))
+	{
+		$sql="SELECT * FROM users where Username='$u' and Password='$p'";
+		$res=mysqli_query($link, $sql);
+		if (mysqli_num_rows($res)>0)
+		{
+			$row=mysqli_fetch_assoc($res);
+			$_SESSION["user"]=$row['Username'];
+			$_SESSION["userID"]=$row['UserID'];
+		}
+		
+	}
+	
+}
+
+//addIdea
+if (isset($_POST['addIdeaSubmit'])){
+	
+	if ($_SESSION['userID']!="") 
+	{
+		
+		$id=$_SESSION['userID'];
+		$title=$_POST['title'];
+		$desc=$_POST['desc'];
+		$tech=$_POST['tech'];
+		$keyw=$_POST['keyw'];
+		$cate=$_POST['cate'];
+		$date=date("Y-m-d");
+		$c=mysqli_query($link, "select CategoryID from category where Title='$cate'");
+		while ($row=mysqli_fetch_assoc($c))
+		{$cateID=$row['CategoryID'];}
+		$sql2="INSERT INTO ideas(LeaderID,Title,Description,CategoryID,Technologies,Keywords,Approved,Date) 
+		values($id,'$title','$desc',$cateID,'$tech','$keyw',0,'$date')";
+		if(mysqli_query($link, $sql2)==false)
+		{
+			echo mysqli_error($link);
+		}
+		else {
+			{
+		echo "<div class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Идејата беше додадена. </div>";
+			}
+		}
+	}
+	else echo "error";
 }
 ?>
 <!DOCTYPE html>
@@ -62,61 +130,27 @@ mysqli_query($link, $sql);
                 	
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#main-slider"><i class="icon-home"></i></a></li>
-                        <li><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
+                        <li style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
                         <li><a href="#portfolio">Portfolio</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#about-us">About Us</a></li>
+                        <li style=" <?php if ($_SESSION['user']!="") echo 'display:none'; ?>"><a href="#signin" data-toggle="modal" data-target=".bs-modal-sm2">Најава</a></li> 
+                        <li class="dropdown mega-dropdown" style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#" class="dropdown-toggle">Најавени сте како: <?php echo $_SESSION["user"] ?></a>
+                        	<div style="width: 100%" id="logout" class="dropdown-menu">
+                        	<ul>
+                        		<li><a href="">Мојот профил</a></li>
+                        		<li><a href="logout.php">Одјави се</a></li>
+                        	</ul>
+                        	</div>
+                        </li>
                        
-                        <li class="dropdown mega-dropdown">
-                        	
-		                   <a href="#" class="dropdown-toggle">Најава/Регистрација</a>
-		                   
-							<ul id="login-dp" class="dropdown-menu">
-								<li>
-								   <div class="row">
-									<div class="col-md-12">
-									 <!-- Nav tabs -->
-									  <ul class="nav nav-tabs" role="tablist">
-									    <li role="presentation" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab">Најава</a></li>
-									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab">Регистрација</a></li>
-									    
-									  </ul>
-									
-									  <!-- Tab panes -->
-									  <div class="tab-content">
-									    <div role="tabpanel" class="tab-pane active" id="Login"><br />
-									    	<form action="#" method="post">
-                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
-                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
-                                             <div class="center"><input class="btn-primary" type="submit" value="Најави се" name="loginButton"/></div><br />
-                                             </form>
-                                        </div>
-									    <div role="tabpanel" class="tab-pane" id="Register"><br />
-									    	<form action="#" method="post" enctype="multipart/form-data">
-									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име"><br />
-                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме"><br />
-                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име"><br />
-                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка"><br />
-                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
-                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
-                                             <input readonly="true" id="fileText">
-											 <button class="btn btn-info" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
-												<input type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
-                                             <div class="center"><input class="btn btn-primary" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
-                                             </form>
-									    </div>
-									  </div>
-									 </div>
-									</div>
-								</li>
-							</ul>
-			            </li>
+                        
                 </div>
             </div>
         </div>
     </header><!--/#header-->
-    
-  	  <!-- Modal -->
+
+  	  <!-- ModalNewIdea -->
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-margin">
     <div class="modal-content" style="background-color:rgba(255,255,255,.9)">
@@ -134,11 +168,11 @@ mysqli_query($link, $sql);
                                
                 <div class="row">
                  
-				 <form class="form-horizontal">
+				 <form class="form-horizontal" action="#" method="post">
 				 	 <div class="form-group">
 				    <label class="col-sm-2 control-label">Категорија</label>
-				    <div class="col-sm-10">
-				      <select>
+				    <div class="col-sm-4">
+				      <select class="form-control" name="cate">
 				      	<?php 
 				      	$query=mysqli_query($link, "select * from category");
 						while ($row=mysqli_fetch_assoc($query))
@@ -153,32 +187,32 @@ mysqli_query($link, $sql);
 				  <div class="form-group">
 				    <label class="col-sm-2 control-label">Тема</label>
 				    <div class="col-sm-10">
-				      <input type="email" class="form-control" id="Tema">
+				      <input type="text" class="form-control" id="Tema" name="title">
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <label class="col-sm-2 control-label">Опис</label>
 				    <div class="col-sm-10">
-				      <textarea class="form-control" id="opis"></textarea>
+				      <textarea class="form-control" id="opis" name="desc"></textarea>
 				    </div>
 				  </div>
 				  
 				    <div class="form-group">
 				    <label class="col-sm-2 control-label">Технологии</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="tehnologii">
+				      <input type="text" class="form-control" id="tehnologii" name="tech">
 				    </div>
 				  </div>
 				    <div class="form-group">
 				    <label class="col-sm-2 control-label">Клучни зборови</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="keywords">
+				      <input type="text" class="form-control" id="keywords" name="keyw">
 				    </div>
 				  </div>
 				 <br />
 				  <div class="form-group center">
 				    <div class="col-md-10 col-md-offset-1">
-				      <button type="submit" class="btn btn-info">Внеси</button>
+				      <button type="submit" name="addIdeaSubmit" class="btn btn-info">Внеси</button>
 				       <button type="button" class="btn btn-danger" data-dismiss="modal">Откажи</button>
 				    </div>
 				  </div>
@@ -194,38 +228,99 @@ mysqli_query($link, $sql);
     </div>
   </div>
 </div>
-<!-- modalEnd -->
-
-    <section id="main-slider" class="carousel">
-        <div class="carousel-inner">
-            <div class="item active">
-                <div class="container">
-                    <div class="carousel-content">
-                        <h1></h1>
-                        <p class="lead"><br></p>
-                    </div>
-                </div>
-            </div><!--/.item-->
-            <div class="item">
-                <div class="container">
-                    <div class="carousel-content">
-                        <h1></h1>
-                        <p class="lead"> <br></p>
-                    </div>
-                </div>
-            </div><!--/.item-->
-        </div><!--/.carousel-inner-->
-        <a class="prev" href="#main-slider" data-slide="prev"><i class="icon-angle-left"></i></a>
-        <a class="next" href="#main-slider" data-slide="next"><i class="icon-angle-right"></i></a>
+<!-- modalLogin End -->
+ 	  <!-- Modal -->
+<div class="modal fade bs-modal-sm2" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-margin2">
+    <div class="modal-content col-md-12 col-sm-12 col-xs-6" style="background-color:rgba(255,255,255,.9)">
+        <br>
+        
+      <div class="modal-body">
+         <!-- Nav tabs -->
+									  <ul class="nav nav-tabs" role="tablist">
+									    <li role="presentation" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab">Најава</a></li>
+									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab">Регистрација</a></li>
+									    
+									  </ul>
+									
+									  <!-- Tab panes -->
+									  <div class="tab-content">
+									    <div role="tabpanel" class="tab-pane active" id="Login"><br />
+									    	<form action="#" method="post">
+                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
+                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
+                                             <div class="center"><input class=" btn btn-primary" type="submit" value="Најави се" name="loginButton"/></div><br />
+                                             </form>
+                                        </div>
+									    <div role="tabpanel" class="tab-pane" id="Register"><br />
+									    	<form action="#" method="post" enctype="multipart/form-data">
+									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име"><br />
+                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме"><br />
+                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име"><br />
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка"><br />
+                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
+                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
+                                             <input readonly="true" id="fileText">
+											 <button class="btn btn-info" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
+												<input type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
+                                             <div class="center"><input class="btn btn-primary" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             </form>
+									    </div>
+									  </div>
+       
+    </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+<!-- modalLoginEnd -->
+    <section class="slider" style="margin:auto">
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+		  <!-- Indicators -->
+		  <ol class="carousel-indicators">
+		    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		  </ol>
+		
+		  <!-- Wrapper for slides -->
+		  <div class="carousel-inner" role="listbox">
+		    <div class="item active">
+		      <img class="img img-responsive" src="images/bg3.jpg" alt="Responsive image" style="margin:auto">
+		      <div class="carousel-caption">
+		        
+		      </div>
+		    </div>
+		    <!-- <div class="item ">
+		      <img src="images/bg2.jpg" alt="">
+		      <div class="carousel-caption">
+		        
+		      </div>
+		    </div>-->
+		   
+		  	    
+		  </div>
+		
+		  <!-- Controls -->
+		  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+		    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		    <span class="sr-only">Previous</span>
+		  </a>
+		  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+		    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		    <span class="sr-only">Next</span>
+		  </a>
+		</div>
     </section><!--/#main-slider-->
 
     <section id="services">
         <div class="container">
-            <div class="box first">
-                <div class="row col-md-12">
+            <div>
+                <div class="row col-md-12" id="ideasList">
                     <?php
                     
-					$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 9");
+					$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 6");
 					while ($row=mysqli_fetch_assoc($query)){
 						?>
 						<div class="col-md-4 col-sm-6">

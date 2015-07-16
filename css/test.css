@@ -8,13 +8,66 @@
   background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
 }
-
+/*alert registration*/
+.alert-reg{
+	z-index:10000;
+	position:relative;
+	margin-top:6%;
+	margin-left:33%;
+	opacity:0.9;
+	overflow: visible;
+}
+#ideasList{
+	padding-top:8%;
+}
 .modal-margin{
 	margin-top:10% !important;
 	margin-left:-25% !important;
 	width:50% !important;
 }
-
+@media screen and (max-width: 2000px) {
+    .modal-margin2{
+	margin-top:12% !important;
+	margin-left:-13% !important;
+	
+    }
+}
+@media screen and (max-width: 1200px) {
+    .modal-margin2{
+	margin-top:12% !important;
+	margin-left:-13% !important;
+	
+    }
+}
+@media screen and (max-width: 700px) {
+    .modal-margin2{
+	margin-top:12% !important;
+	margin-left:-13% !important;
+	
+    }
+}
+@media screen and (max-width: 500px) {
+    .modal-margin2{
+	margin-top:15% !important;
+	margin-left:-13% !important;
+	
+    }
+}
+@media screen and (max-width: 400px) {
+    .modal-margin2{
+	margin-top:12% !important;
+	margin-left:-13% !important;
+	
+    }
+}
+@media screen and (max-width: 300px) {
+    .modal-margin2{
+	 margin-top:22% !important;
+	
+	
+    }
+}
+body.modal-open {margin-right: 0px !important;}
 /* LOGIN BUTTON */
 
 #login-dp{
