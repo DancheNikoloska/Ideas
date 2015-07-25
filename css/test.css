@@ -122,3 +122,19 @@ body.modal-open {margin-right: 0px !important;}
     }
 }
 
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+    background-color: #e84c3d !important;
+    border-radius: 0px !important;
+    color:white !important;
+}
+.panel1{
+	border-color:#e84c3d !important;
+	
+}
+.panel2{
+	background-color:#e84c3d !important;
+	border-color:#e84c3d !important;
+	color:white !important;
+}
+.btn:focus {outline:0 !important;}
+

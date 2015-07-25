@@ -21,7 +21,7 @@ jQuery(function($) {
    
 	//smooth scroll
 	$('.navbar-nav > li').click(function(event) {
-		if($(this).is(':last-child'))
+		if($(this).is(':last-child')||$(this).is(':first-child'))
 		{}
 		else{
 		event.preventDefault();
