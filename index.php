@@ -61,8 +61,15 @@
                   
                    
                 </div><!--/.row-->
+               
             </div><!--/.box-->
+            <!--button More -->
+         <div class="center">
+         	<input class="btn" style="color: white; background-color: #e84c3d;" type="submit" value="Повеќе"/>
+         </div><br />
+         
         </div><!--/.container-->
+       
     </section><!--/#services-->
 
     <section id="portfolio">

@@ -283,6 +283,7 @@ if (isset($_POST['addIdeaSubmit'])){
                                              <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
                                              <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
                                              <div class="center"><input class="btn" style="color: white; background-color: #e84c3d;" type="submit" value="Најави се" name="loginButton"/></div><br />
+                                             
                                              </form>
                                         </div>
 									    <div role="tabpanel" class="tab-pane" id="Register"><br />
