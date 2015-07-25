@@ -76,20 +76,23 @@ while ($row=mysqli_fetch_assoc($res))
 	   		</div>
 	   		
 	   		<div class="col-md-10">
-	   		<div style="display: inline-block">
-	   		<span>Оцени: </span>
+	   		<div style="display: inline-block;margin-left: -4.4%;margin-top: 2%;" class="col-md-1 pull-left">
+	   		<span class="text-left">Оцени: </span>
 	   		
 	   		</div>
-	   		<div style="display: inline-block">
-	   		<form action="" method="post" style="display: inline-block">
-			 <input style="display: inline;" value="<?php echo $rating; ?>" id="input-1" type="submit" class="rating" name="submitRate" data-min="0" data-max="5" data-step="1">
-			
+	   		<div style="display: inline-block" class="col-md-11" style="">
+	   		<form class="col-md-12"	 action="" method="post" style="display: inline-block">
+	   		<span class="col-md-8">	
+			 <input name="ratingVal" style="display: inline;" value="<?php echo $rating; ?>" id="input-1" type="button" class="rating pull-left" name="submitRate" data-min="0" data-max="5" data-step="1">
+			</span> 
+			 <input type="submit" style="display: inline;" class="col-md-4 btn btn-danger pull-right" name="submitRating" value="Оцени">
 			</form>
 			</div>
 			<div><span>Рејтинг: <?php echo $rating."/5". " од ".$ratingsNo. " корисници"; ?></span></div>
 			</div>
 			
 	    	</div>
+	    </div>
 	    <div role="tabpanel" class="tab-pane" id="comments">Коментари таб</div>
 	    
     </div>
