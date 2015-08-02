@@ -1,8 +1,10 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700);
+
+
 body {
-  background: #e5e5e5;
-  color: #999;
-}
+	background:#ffffff url('../images/wavy.png') repeat !important;
+	color:#666666 !important; 
+	}
+
 h1,
 h2,
 h3,
@@ -430,14 +432,14 @@ a:focus {
 .navbar-default .navbar-nav > li.active:hover > a:focus,
 .navbar-default .navbar-nav > li:hover > a:focus,
 .navbar-default .navbar-nav > li:focus > a:focus {
-  background-color: #e84c3d;
+  background-color: #BEE3F5 !important;
   color: #fff;
 }
 .icon-lg {
-  font-size: 48px;
-  height: 108px;
-  width: 108px;
-  line-height: 108px;
+  font-size: 25px;
+  height: 70px;
+  width: 70px;
+  line-height: 70px;
   color: #fff;
   margin: 10px;
   background-color: rgba(0, 0, 0, 0.4);

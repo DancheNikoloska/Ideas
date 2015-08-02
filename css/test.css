@@ -123,18 +123,18 @@ body.modal-open {margin-right: 0px !important;}
 }
 
 .nav-pills > .active > a, .nav-pills > .active > a:hover {
-    background-color: #e84c3d !important;
+    background-color: #BEE3F5 !important;
     border-radius: 0px !important;
-    color:white !important;
+    color:#666 !important;
 }
 .panel1{
-	border-color:#e84c3d !important;
+	border-color:#5CB8E6 !important;
 	
 }
 .panel2{
-	background-color:#e84c3d !important;
-	border-color:#e84c3d !important;
-	color:white !important;
+	background-color:#BEE3F5 !important;
+	border-color:#BEE3F5 !important;
+	
 }
 .btn:focus {outline:0 !important;}
 

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include 'database.php';
 session_start();
 if (!isset($_SESSION['user'])){
@@ -141,6 +142,7 @@ if (isset($_POST['addIdeaSubmit'])){
             background-color: #c32f10;
         }
     </style>
+  
 </head><!--/head-->
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">
@@ -156,16 +158,16 @@ if (isset($_POST['addIdeaSubmit'])){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"></a>
+                    <a class="navbar-brand" href="index.php"><img src="images/logo4.png" width="300px" height="200px" style="margin-top:-43%;margin-left:-20%" /></a>
                 </div>
                 <div class="collapse navbar-collapse">
                 	
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php"><i class="icon-home"></i></a></li>
+                        <li><a href="index.php"><i class="icon-home"></i></a></li>
                         <li style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
-                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#ideas">Идеи</a></li>
                         <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#about-us">About Us</a></li>
+                        <li><a href="#about-us">За нас</a></li>
                         <li style=" <?php if ($_SESSION['user']!="") echo 'display:none'; ?>"><a href="#signin" data-toggle="modal" data-target=".bs-modal-sm2">Најава</a></li> 
                         <li class="dropdown mega-dropdown" style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#" class="dropdown-toggle">Најавени сте како: <?php echo $_SESSION["user"] ?></a>
                         
@@ -176,7 +178,7 @@ if (isset($_POST['addIdeaSubmit'])){
                         	</ul>
                         	
                         </li>
-                       
+                       </ul>
                         
                 </div>
             </div>
@@ -188,11 +190,12 @@ if (isset($_POST['addIdeaSubmit'])){
   <div class="modal-dialog modal-sm modal-margin">
     <div class="modal-content" style="background-color:rgba(255,255,255,.9)">
         <br>
-        <div class="bs-example bs-example-tabs">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active lead"><a href="#addIdea" data-toggle="tab" >Додај идеја</a></li>
+        <div class="modal-body">
+          <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
+			<li role="presentation" class="active"><a href="#newIdea" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Додај идеја</a></li>
+		 </ul>
               
-            </ul>
+            
         </div>
       <div class="modal-body">
         <div id="myTabContent" class="tab-content">
@@ -245,8 +248,8 @@ if (isset($_POST['addIdeaSubmit'])){
 				 <br />
 				  <div class="form-group center">
 				    <div class="col-md-10 col-md-offset-1">
-				      <button type="submit" name="addIdeaSubmit" class="btn btn-info">Внеси</button>
-				       <button type="button" class="btn btn-danger" data-dismiss="modal">Откажи</button>
+				      <button type="submit" name="addIdeaSubmit" class="btn btn-primary">Внеси</button>
+				       <button type="button" class="btn btn-default" data-dismiss="modal">Откажи</button>
 				    </div>
 				  </div>
 				</form>
@@ -261,7 +264,7 @@ if (isset($_POST['addIdeaSubmit'])){
     </div>
   </div>
 </div>
-<!-- modalLogin End -->
+<!-- modalNew Idea End -->
  	  <!-- Modal -->
 <div class="modal fade bs-modal-sm2" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-margin2">
@@ -270,9 +273,9 @@ if (isset($_POST['addIdeaSubmit'])){
         
       <div class="modal-body">
          <!-- Nav tabs -->
-									  <ul class="nav nav-pills" style="border-bottom: 1px solid #e84c3d;" role="tablist">
-									    <li role="presentation" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: gray;">Најава</a></li>
-									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: gray;">Регистрација</a></li>
+									  <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
+									    <li role="presentation" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
+									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
 									    
 									  </ul>
 									
@@ -282,7 +285,7 @@ if (isset($_POST['addIdeaSubmit'])){
 									    	<form action="#" method="post">
                                              <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
                                              <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
-                                             <div class="center"><input class="btn" style="color: white; background-color: #e84c3d;" type="submit" value="Најави се" name="loginButton"/></div><br />
+                                             <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Најави се" name="loginButton"/></div><br />
                                              
                                              </form>
                                         </div>
@@ -295,9 +298,9 @@ if (isset($_POST['addIdeaSubmit'])){
                                              <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
                                              <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
                                              <input readonly="true" id="fileText" style="width: 65% !important;">
-											 <button class="btn" style="color: white; background-color: #e84c3d;" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
+											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
 												<input type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
-                                             <div class="center"><input class="btn" style="color: white; background-color: #e84c3d;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
                                              </form>
 									    </div>
 									  </div>
