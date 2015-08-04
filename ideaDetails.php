@@ -47,6 +47,22 @@ while ($row=mysqli_fetch_assoc($res))
 	}
   }
 
+	if (isset($_POST["comButton"]))
+	{
+		$com=$_POST['com'];
+		mysqli_query($link, "INSERT INTO comments(Text,idUser,idIdea,Time) values('$com','$najavenID','$ideaId',NOW())");
+	}
+	
+	//delete comments
+	
+	if(isset($_GET['deletecom']))
+	{
+	$id=$_GET['deletecom'];
+	
+	$sql = "delete from comments where commentID='$id'";
+	mysqli_query($link, $sql);
+	}
+	
 ?>
 <br /><br />
 <div class="container" style="width: 70%;">
@@ -107,7 +123,40 @@ while ($row=mysqli_fetch_assoc($res))
 	 	<li role="presentation" class="active" ><a data-toggle="tab" href="#comments" style="color: #666 !important;background-color: #BEE3F5 !important">Коментари</a></li>
 	 </ul>
 	 
+	<!-- comments -->
+	<br />
+	<form action="#" method="post">
+		<textarea placeholder="Вашиот коментар тука..." rows="5" name="com" style="width:100%"></textarea><br /><br />
+		<input type="submit" value="Коментирај" name="comButton" style="width: 30%" class="btn btn-primary pull-right"/>
+	</form>
+	<br /><br /><br />
+	<div id="result_p">
+		<?php 
+		$sql=mysqli_query($link, "select commentID,UserID,Text,Username,date(Time) as d  from comments c inner join users u on u.UserID=c.idUser where idIdea='$ideaId' order by Time desc limit 0,2");
+		while($row=mysqli_fetch_assoc($sql))
+		{ 
+			$userId=$row['UserID'];
+			$comId=$row['commentID'];
+			
+			?>
+			<div>
+				<?php if ($userId==$najavenID) {?>
+				<a href="?ideaId=<?php echo $ideaId."&deletecom=".$comId; ?>"  style="color:red;"><span class="glyphicon glyphicon-remove-circle"></span></a>&nbsp;&nbsp; <?php } ?>
+				<span><?php echo '<i>('.$row['d'].')</i> '.'<b>'. $row['Username'].':</b>'; ?></span><br />
+				<span><?php echo $row['Text'] ?></span><br /><br />
+				
+			</div>
+			
+		
+		<?php } ?>
+		<input type="hidden" id="result_no" value="2">
+		</div>
+		  <input type="button" class="btn btn-primary pull-right" style="width: 30%" value="Повеќе" onclick="loadmoreC()" />
+		
 	
+
+
+	<!-- comments end -->
       
 	</div>
 	
@@ -118,6 +167,49 @@ while ($row=mysqli_fetch_assoc($res))
 
 </div>
 <br /><br /> <br />
+ <script>
+	$(function() {
+
+		$(".deletecom").click(function(){
+		var del_id = element.attr("id");
+		var info = 'id=' + del_id;
+		
+		$.ajax({
+		type: "GET",
+		url: "ideaDetails.php",
+		data: info,
+		success: function(){
+		}
+		});
+		$(this).parents(".record").animate({ backgroundColor: "#fbc7c7" }, "fast")
+		.animate({ opacity: "hide" }, "slow");
+		
+		return false;
+		});
+		});
+   </script>
+   <script type="text/javascript">
+	
+	function loadmoreC()
+		{
+		  var val = document.getElementById("result_no").value;
+		  $.ajax({
+		  type: 'post',
+		  url: 'moreComments.php?ideaId='.$ideaId,
+		  data: {
+		    getresult:val
+		  },
+		  success: function (response) {
+		    var content = document.getElementById("result_p");
+		    content.innerHTML = content.innerHTML+response;
+		
+		    // We increase the value by 2 because we limit the results by 2
+		    document.getElementById("result_no").value = Number(val)+2;
+		  }
+		  });
+		}
+	</script>
+
  <?php include_once 'footer.php'; ?>
 <?php } 
 else header("Location: index.php");

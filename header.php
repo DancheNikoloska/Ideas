@@ -142,7 +142,9 @@ if (isset($_POST['addIdeaSubmit'])){
             background-color: #c32f10;
         }
     </style>
-  
+  	<script type="text/javascript">
+  	 var disqus_developer = 1; // this would set it to developer mode
+  	</script>
 </head><!--/head-->
 
 <body data-spy="scroll" data-target="#navbar" data-offset="0">

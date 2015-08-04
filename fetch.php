@@ -2,10 +2,10 @@
 
 include_once 'database.php';
 
-  $no = $_POST['getresult'];
+ $no = $_POST['getresult'];
  $select=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit $no,6");
 					 
-  while($row = mysqli_fetch_assoc($select))
+ while($row = mysqli_fetch_assoc($select))
         {
           	?>
 						<div class="col-md-4 col-sm-6">
