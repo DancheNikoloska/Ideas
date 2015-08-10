@@ -74,7 +74,7 @@ while ($row=mysqli_fetch_assoc($res))
 	    <h3 class="panel-title" style="color:#666 !important;"><?php echo $title; ?></h3>
 	  </div>
 	  <div class="panel-body">
-	  <h5 class="pull-left" style="margin-top: 4%;">Објавено од: <a href="userProfile.php?id="><?php echo $leaderName." ".$leaderLast; ?></a> </h5><br /><br />
+	  <h5 class="pull-left" style="margin-top: 4%;">Објавено од: <a href="userProfile.php?id=<?php echo $leaderID; ?>"><?php echo $leaderName." ".$leaderLast; ?></a> </h5><br /><br />
 	   <!--rating  -->
 	   <div class="row">
 	   			   		

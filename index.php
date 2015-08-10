@@ -22,11 +22,11 @@
 	}
 	</script>
 	<script>
-		function getdata(str){
+		function getdata(str,str2){
 			$.ajax({
 				type:'post',
 				url:'search.php',
-				data:{"sending":str},
+				data:{"sending":str,"orderIdeas":str2},
 				success:function(data){document.getElementById("result_para").innerHTML=data;}
 				
 				
@@ -35,6 +35,20 @@
 	</script>
 	
 <!-- load more results end -->
+
+<!-- order by -->
+<script>
+		function orderBy(str,str2){
+			$.ajax({
+				type:'post',
+				url:'search.php',
+				data:{"orderIdeas":str,"sending":str2},
+				success:function(data){document.getElementById("result_para").innerHTML=data;}
+				
+				
+			});
+		}
+	</script>
 
 <?php include 'header.php'; 
 //echo $_SESSION['user'];
@@ -85,26 +99,26 @@
             	<div class="row">
             	<div class="col-md-12">
             	<div class="input-group col-md-10 pull-left" >
-			      <input type="text" class="form-control" id="textfield" onkeyup="getdata(this.value)" placeholder="Пребарај...">
+			      <input type="text" class="form-control" id="textfield" onkeyup="getdata(this.value,document.getElementById('orderFilter').value)" placeholder="Пребарај...">
 			      <span class="input-group-btn">
-			        <button class="btn btn-default" onclick="getdata(document.getElementById('textfield').value);" type="submit" name="sending"><span class="glyphicon glyphicon-search"></span></button>
+			        <button class="btn btn-default" onclick="getdata(document.getElementById('textfield').value,document.getElementById('orderFilter').value);" type="submit" name="sending"><span class="glyphicon glyphicon-search"></span></button>
 			      </span>
 			     </div>
 			     <div class="col-md-2 pull-right">
 			     	
 					<!-- Single button -->
-					<div class="btn-group">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					    Подреди <span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu">
-					    <li><a href="#">Рејтинг</a></li>
-					    <li><a href="#">Датум</a></li>
-					    <li><a href="#">Something else here</a></li>
-					    <li role="separator" class="divider"></li>
-					    <li><a href="#">Separated link</a></li>
-					  </ul>
-					</div>
+				<div class="btn-group">
+				<form>
+				<select id="orderFilter" name="orderIdeas" onchange="orderBy(this.value,document.getElementById('textfield').value)" class="form-control">
+				  <option value="0" selected style='display:none;'>Подреди според</option>
+				  <option value="1">Рејтинг</option>
+				  <option value="2">Датум</option>
+				 
+				 
+				  
+				  </select>
+				</form>
+			     </div>
 			     </div>
 			     </div>
 			     </div>
@@ -146,7 +160,7 @@
          <!--button More -->
          <div class="center">
          	  <input type="button" id="load" class="btn btn-primary" style="width: 9%" value="Повеќе" onclick="loadmore()" />
-         </div><br />
+         </div><br /><br />
        
     </section><!--/#services-->
 
