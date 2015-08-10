@@ -82,12 +82,31 @@
     <section id="ideas">
         <div class="container">
             <div><br /><br />
-            	
-            	<div class="input-group" >
+            	<div class="row">
+            	<div class="col-md-12">
+            	<div class="input-group col-md-10 pull-left" >
 			      <input type="text" class="form-control" id="textfield" onkeyup="getdata(this.value)" placeholder="Пребарај...">
 			      <span class="input-group-btn">
 			        <button class="btn btn-default" onclick="getdata(document.getElementById('textfield').value);" type="submit" name="sending"><span class="glyphicon glyphicon-search"></span></button>
 			      </span>
+			     </div>
+			     <div class="col-md-2 pull-right">
+			     	
+					<!-- Single button -->
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Подреди <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#">Рејтинг</a></li>
+					    <li><a href="#">Датум</a></li>
+					    <li><a href="#">Something else here</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="#">Separated link</a></li>
+					  </ul>
+					</div>
+			     </div>
+			     </div>
 			     </div>
 			    <br />
                 <div class="row col-md-12" id="result_para"><br /> 
@@ -131,122 +150,7 @@
        
     </section><!--/#services-->
 
-    <section id="portfolio">
-        <div class="container">
-            <div class="box">
-                <div class="center gap">
-                    <h2>Portfolio</h2>
-                    <p class="lead">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac<br>turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
-                </div><!--/.center-->
-                <ul class="portfolio-filter">
-                    <li><a class="btn btn-primary active" href="#" data-filter="*">All</a></li>
-                    <li><a class="btn btn-primary" href="#" data-filter=".bootstrap">Bootstrap</a></li>
-                    <li><a class="btn btn-primary" href="#" data-filter=".html">HTML</a></li>
-                    <li><a class="btn btn-primary" href="#" data-filter=".wordpress">Wordpress</a></li>
-                </ul><!--/#portfolio-filter-->
-                <ul class="portfolio-items col-4">
-                    <li class="portfolio-item apps">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item1.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item1.jpg"><i class="icon-eye-open"></i></a>             
-                                </div>
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>
-                        </div>
-                    </li><!--/.portfolio-item-->
-                    <li class="portfolio-item joomla bootstrap">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item2.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item2.jpg"><i class="icon-eye-open"></i></a>  
-                                </div>
-                            </div> 
-                            <h5>Lorem ipsum dolor sit amet</h5>         
-                        </div>
-                    </li><!--/.portfolio-item-->
-                    <li class="portfolio-item bootstrap wordpress">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item3.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item3.jpg"><i class="icon-eye-open"></i></a>        
-                                </div> 
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>          
-                        </div>           
-                    </li><!--/.portfolio-item-->
-                    <li class="portfolio-item joomla wordpress apps">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item4.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item4.jpg"><i class="icon-eye-open"></i></a>          
-                                </div>   
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>        
-                        </div>           
-                    </li><!--/.portfolio-item-->
-                    <li class="portfolio-item joomla html">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item5.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item5.jpg"><i class="icon-eye-open"></i></a>          
-                                </div>  
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>  
-                        </div>       
-                    </li><!--/.portfolio-item-->
-                    <li class="portfolio-item wordpress html">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item6.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item6.jpg"><i class="icon-eye-open"></i></a>           
-                                </div>  
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>         
-                        </div>           
-                    </li><!--/.portfolio-item-->
-                    <li  class="portfolio-item joomla html">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item5.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item5.jpg"><i class="icon-eye-open"></i></a>          
-                                </div>  
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>  
-                        </div>       
-                    </li><!--/.portfolio-item-->
-                    <li  class="portfolio-item wordpress html">
-                        <div class="item-inner">
-                            <div class="portfolio-image">
-                                <img src="images/portfolio/thumb/item6.jpg" alt="">
-                                <div class="overlay">
-                                    <a class="preview btn btn-danger" title="Lorem ipsum dolor sit amet" href="images/portfolio/full/item6.jpg"><i class="icon-eye-open"></i></a>           
-                                </div>   
-                            </div>
-                            <h5>Lorem ipsum dolor sit amet</h5>        
-                        </div>         
-                    </li><!--/.portfolio-item-->
-                </ul>   
-            </div><!--/.box-->
-        </div><!--/.container-->
-    </section><!--/#portfolio-->
-	<div id="dodajideja">
-	    <section >
-        <div class="container">
-            <div class="box">
-               
-            </div> 
-        </div>
-    </section><!--/#pricing-->
-   </div>
-
+  
     <section id="about-us">
         <div class="container">
             <div class="box">
