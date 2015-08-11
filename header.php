@@ -165,12 +165,12 @@ if (isset($_POST['addIdeaSubmit'])){
                 <div class="collapse navbar-collapse">
                 	
                     <ul class="nav navbar-nav">
-                        <li><a href="index.php"><i class="icon-home"></i></a></li>
+                        <li id="homeicon" class="active"><a href="index.php"><i class="icon-home"></i></a></li>
                         <li style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
                         <li><a href="#ideas">Идеи</a></li>
                         <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#about-us">За нас</a></li>
-                        <li style=" <?php if ($_SESSION['user']!="") echo 'display:none'; ?>"><a href="#signin" data-toggle="modal" data-target=".bs-modal-sm2">Најава</a></li> 
+                        <li id="aboutus"><a href="#about-us">За нас</a></li>
+                        <li id="loginActive" style=" <?php if ($_SESSION['user']!="") echo 'display:none'; ?>"><a href="#signin" data-toggle="modal" data-target=".bs-modal-sm2">Најава</a></li> 
                         <li class="dropdown mega-dropdown" style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#" class="dropdown-toggle">Најавени сте како: <?php echo $_SESSION["user"] ?></a>
                         
                         	<ul class="dropdown-menu" style="width: 100%" id="logout">
@@ -188,13 +188,13 @@ if (isset($_POST['addIdeaSubmit'])){
     </header><!--/#header-->
 
   	  <!-- ModalNewIdea -->
-<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-modal-sm" id="myModal" tabindex="-2" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-margin">
     <div class="modal-content" style="background-color:rgba(255,255,255,.9)">
         <br>
         <div class="modal-body">
           <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
-			<li role="presentation" class="active"><a href="#newIdea" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Додај идеја</a></li>
+			<li role="presentation" class="active"><a href="#newIdea" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;background-color: #BEE3F5;">Додај идеја</a></li>
 		 </ul>
               
             
@@ -276,7 +276,7 @@ if (isset($_POST['addIdeaSubmit'])){
       <div class="modal-body">
          <!-- Nav tabs -->
 									  <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
-									    <li role="presentation" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
+									    <li role="presentation" id="LoginLi" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
 									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
 									    
 									  </ul>
@@ -313,3 +313,16 @@ if (isset($_POST['addIdeaSubmit'])){
     </div>
   </div>
 </div>
+<script>
+   $(".nav a").on("click", function(){
+   $(".nav").find(".active").removeClass("active");
+   $(this).parent().addClass("active");
+});
+
+  //li active vo Najava
+   $("#loginActive").on("click",function(){
+   	 $("#Login").addClass('active');
+   	 $("#LoginLi").addClass('active');
+   });
+   
+</script>
