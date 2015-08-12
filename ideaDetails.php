@@ -63,7 +63,56 @@ while ($row=mysqli_fetch_assoc($res))
 	mysqli_query($link, $sql);
 	}
 	
+//apliciraj
+
+if (isset($_POST['apliciraj']))
+{
+	if (mysqli_query($link, "Insert into applications values('$najavenID','$ideaId',0)")==false)
+	echo mysqli_error($link);
+	
+}
+
+//cancel application
+if (isset($_POST['cancelApp']))
+{
+	if (mysqli_query($link, "Delete from applications where UserID='$najavenID' and IdeaID='$ideaId'")==false)
+	echo mysqli_error($link);
+	
+}
+
+ //accept application
+		if (isset($_POST['accept']))
+		{
+			$user=$_REQUEST['user'];
+			$idea=$_REQUEST['ideaId'];
+			if (mysqli_query($link, "insert into team values('$idea','$user',3)")==false)
+			echo mysqli_error($link);	
+			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
+			echo mysqli_error($link);	
+			
+		}
+//deny application
+		if (isset($_POST['deny']))
+		{
+			$user=$_REQUEST['user'];
+			$idea=$_REQUEST['ideaId'];
+			
+			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
+			echo mysqli_error($link);	
+		}
+	
 ?>
+
+<!-- like and share button-->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- like and share button end -->
 <br /><br />
 <div class="container" style="width: 70%;">
 <div class="row col-md-12">
@@ -113,10 +162,60 @@ while ($row=mysqli_fetch_assoc($res))
 	    <?php echo nl2br($desc); ?>
 	    <h5 style="color:gray"><i>Технологии: <?php echo $tech; ?></i></h5>
 	    <h5 style="color:gray"><i><?php echo "Клучни зборови: " . $keyw; ?></i></h5>
-	    <input type="button" class="pull-right btn btn-primary" value="Аплицирај" />
+	  	<?php  if ($najavenID!=$leaderID) {?>
+	  	<form action="" method="post">
+	    <?php 
+	    $app=mysqli_query($link, "select * from applications where UserID='$najavenID' and IdeaID='$ideaId'");
+		if (mysqli_num_rows($app)>0){
+	    ?>
+	    <input type="submit" name="cancelApp" class="pull-right btn btn-primary" value="Откажи"/>
+	    <?php } 
+		else if (mysqli_num_rows($app)==0){
+	    ?>
+	    <input type="submit" name="apliciraj" class="pull-right btn btn-primary" value="Аплицирај" />
+	    <?php } ?>
+	    </form>
+	    <?php } ?>
 	   
 	  </div>
 	</div>
+	<!-- like and share button-->
+	<div class="fb-share-button" data-href="http://localhost/IdeasD/ideaDetails.php?ideaId=<?php echo $ideaId; ?>" data-layout="button_count"></div>
+	<!-- twitter button -->
+	
+	<br /><br />
+	<!-- applications from users -->
+	<?php  if ($najavenID==$leaderID) {?>
+	<h4>Аплицирале:</h4><hr>
+	<div class="col-md-12">
+	<?php 
+	$appUsers=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserID where a.IdeaID='$ideaId'");
+	while ($row=mysqli_fetch_assoc($appUsers)){
+		$userF=$row['FirstName'];
+		$userL=$row['LastName'];
+		$uId=$row['UserID'];
+	?>
+	<div class="row">
+		<a style="font-size: 1.2em" href="userProfile.php?id=<?php echo $row['UserID']; ?>"><?php echo $userF." ".$userL;  ?></a>
+		<div class="pull-right">
+		<form action="?ideaId=<?php echo $ideaId; ?>&user=<?php echo $uId; ?>" method="post">
+		<!-- MOZE DA SE DODADE DA SE ISPRAKJA EMAIL KAKO ODGOVOR-->
+		<a href="" data-toggle="tooltip" title="Прифати"><button type="submit" name="accept"><span class="glyphicon glyphicon-ok"></span></a></button>
+		<a href="" data-toggle="tooltip" title="Одбиј"><button type="submit" name="deny"><span class="glyphicon glyphicon-remove" style="color:red"></span></a></button>
+		</form>
+		</div>
+	</div><hr>
+	<?php
+	
+	 
+	}
+	 
+	 
+	 ?>
+	<!-- applications from users end -->
+	
+	</div>
+	<?php } ?>
 	</div>
 	<div class="col-md-5" style="margin-top: 15%">
 	 <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5;"  role="tablist">
@@ -211,6 +310,11 @@ while ($row=mysqli_fetch_assoc($res))
 		  }
 		  });
 		}
+	</script>
+	<script>
+	$(document).ready(function(){
+	    $('[data-toggle="tooltip"]').tooltip(); 
+	});
 	</script>
 
  <?php include_once 'footer.php'; ?>
