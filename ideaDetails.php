@@ -150,7 +150,7 @@ while ($row=mysqli_fetch_assoc($res))
 		
 		<?php } ?>
 		<input type="hidden" id="result_no" value="2">
-		</div>
+	</div>
 		  <input type="button" class="btn btn-primary pull-right" style="width: 30%" value="Повеќе" onclick="loadmoreC()" />
 		
 	
@@ -195,13 +195,16 @@ while ($row=mysqli_fetch_assoc($res))
 		  var val = document.getElementById("result_no").value;
 		  $.ajax({
 		  type: 'post',
-		  url: 'moreComments.php?ideaId='.$ideaId,
+		  url: ('moreComments.php?ideaId=<?php echo $ideaId; ?>'),
+		  dataType: 'html',
 		  data: {
-		    getresult:val
+		    "getresult":val
 		  },
 		  success: function (response) {
+		  	//alert(response);
 		    var content = document.getElementById("result_p");
 		    content.innerHTML = content.innerHTML+response;
+		    
 		
 		    // We increase the value by 2 because we limit the results by 2
 		    document.getElementById("result_no").value = Number(val)+2;

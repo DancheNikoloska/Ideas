@@ -22,4 +22,6 @@ $no = $_POST['getresult'];
 			</div>
 			
 		
-		<?php } ?>
+		<?php } 
+		die();
+		?>
