@@ -171,7 +171,7 @@
                 <div class="center">
                     <h2>За нас</h2>
                     <p class="lead">
-                    	Pellentesque habitant morbi tristique senectus et netus et<br>malesuada fames ac turpis egestas.
+                    "Имам идеја" е веб апликација...
                     </p>
                 </div>
                 <div class="gap"></div>
@@ -237,16 +237,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="social">
-                                    <li><a href="#"><i class="icon-facebook icon-social"></i> Facebook</a></li>
-                                    <li><a href="#"><i class="icon-google-plus icon-social"></i> Google Plus</a></li>
-                                    <li><a href="#"><i class="icon-pinterest icon-social"></i> Pinterest</a></li>
+                                    <li><a href="https://www.facebook.com/pages/%D0%98%D0%BC%D0%B0%D0%BC-%D0%B8%D0%B4%D0%B5%D1%98%D0%B0/963925187007843?fref=ts"><i class="icon-facebook icon-social"></i> Facebook</a></li>
+                                    <li><a href="https://plus.google.com/u/0/113602250126364441762/posts"><i class="icon-google-plus icon-social"></i> Google Plus</a></li>
+                                    <li><a href="https://www.pinterest.com/imamideja/"><i class="icon-pinterest icon-social"></i> Pinterest</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <ul class="social">
-                                    <li><a href="#"><i class="icon-linkedin icon-social"></i> Linkedin</a></li>
-                                    <li><a href="#"><i class="icon-twitter icon-social"></i> Twitter</a></li>
-                                    <li><a href="#"><i class="icon-youtube icon-social"></i> Youtube</a></li>
+                                    <li><a href="https://www.linkedin.com/profile/view?id=AAIAABo_ZCgBfYu1leUzDADYL1S_JBU4yEhlkiY&trk=nav_responsive_tab_profile_pic"><i class="icon-linkedin icon-social"></i> Linkedin</a></li>
+                                    <li><a href="https://twitter.com/ImamIdeja"><i class="icon-twitter icon-social"></i> Twitter</a></li>
+                                    <li><a href="https://www.youtube.com/channel/UCTfXMhzHHSdygRXRKj0madg"><i class="icon-youtube icon-social"></i> Youtube</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -281,5 +281,6 @@
 	   });
 	  
     </script>
+  
 </body>
 </html>

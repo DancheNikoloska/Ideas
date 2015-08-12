@@ -75,7 +75,7 @@ if (isset($_POST['addIdeaSubmit'])){
 		}
 		else {
 			{
-		echo "<div class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Идејата беше додадена. </div>";
+		echo "<div id=\"projectAlert3\" class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Идејата беше додадена. </div>";
 			}
 		}
 	}
@@ -326,3 +326,10 @@ if (isset($_POST['addIdeaSubmit'])){
    });
    
 </script>
+  <script>
+		setTimeout(fade_out, 2000);
+		function fade_out() {
+		  $("#projectAlert3").fadeOut().empty();
+		 
+		}
+	</script>

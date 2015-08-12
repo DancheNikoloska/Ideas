@@ -119,6 +119,23 @@ $id=$_GET['delete2'];
 $sql = "delete from userexperiences where uExperienceID='$id'";
 mysqli_query($link, $sql);
 }
+
+//deleteIdea
+if (isset($_POST['deleteIdea']))
+{
+	?>
+	<script>
+	if (confirm('Избришете идеја?')==true){
+		<?php
+	
+		$ideaId=$_REQUEST['ideaId'];
+		mysqli_query($link, "delete from ideas where ideaID='$ideaId'");
+	
+	?>
+	}
+	</script>
+<?php
+}
 ?>
 
  <div class="container">
@@ -191,9 +208,51 @@ mysqli_query($link, $sql);
 
         </section>
         <!-- SECTION END -->
-        <!-- PROJECTS -->
-        <h4>Проекти</h4>
-        
+        <!-- Ideas start -->
+      <button id="IdBtn" class="btn col-md-12" style="margin-top: -2.5%;"><b>Идеи</b></button>
+      <div id="IdContent" class="row" style="display: none; margin-top: 2.5%">  
+      <div style="width:49%; margin-left: 1.2% !important" class="col-md-6" > 
+      	<h5>Мои идеи:</h5>
+        <?php $sql=mysqli_query($link, "select * from ideas where LeaderID='$userId'");
+		
+		while($row=mysqli_fetch_assoc($sql))
+		{ 
+			$title=$row['Title'];		
+			$ideaID=$row['IdeaID'];	?>
+			<form action="?id=<?php echo $userId; ?>&ideaId=<?php echo $ideaID; ?>" method="post">	
+			<div class="panel panel-default row">
+			<div class="panel-footer" style="background-color:white;"><span class="glyphicon glyphicon-user">&nbsp </span><a href="ideaDetails.php?ideaId=<?php echo $ideaID;?>"><?php echo $title; ?></a>
+			<button style="background-color: transparent; border: 0px" name="deleteIdea" class="pull-right" type="submit" value="X"><span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+			
+			</div>
+			</form>
+			
+			
+			
+      
+        <?php } ?>
+       </div>
+        <div style="width:49%" class="col-md-6 pull-right">
+       	<h5>Член во тим:</h5> 
+        <?php $sql=mysqli_query($link, "select i.Title,t.IdeaID from team t inner join ideas i on t.IdeaId=i.IdeaId where UserID='$userId'");
+		while($row=mysqli_fetch_assoc($sql))
+		{ 
+			$title=$row['Title'];	
+			$ideaID=$row['IdeaID'];		
+			echo '<div class="panel panel-default"><div class="panel-footer" style="background-color:white;"><a href="ideaDetails.php?ideaId='.$ideaID.'">'.$title.'</a></div></div>';
+			
+			?>
+			
+      
+        <?php } ?>
+       </div>
+      
+        </div>
+    <br /><br />
+      <!-- Ideas end -->
+    <button id="prBtn" class="btn btn-primary col-md-12" style="margin-top: -2.5%;"><b>Проекти</b></button>
+      <div id="prContent" style="display: none; margin-top: 4.5%;">  
         <?php if ($userId==$najavenID) {?>
         <ul>
         <li class="pull-right btn btn-primary" style="margin-top: -3.5%"  data-toggle="modal" data-target=".bs-modal-sm3">Додај проект</li>
@@ -208,7 +267,7 @@ mysqli_query($link, $sql);
 			$year=$row['Year'];
 			$prId=$row['uProjectID'];
 			?>
-        <div class="panel panel-default record" id="record-',$prId,'">
+        <div class="panel panel-default record" id="record-<?php echo $prId; ?>">
         	<div class="panel-heading"><?php echo "<b>".$title."</b> <br />".$year; ?> </div>
         	<div class="panel-body"><?php echo $desc."<br />Користени технологии: ".$tech; ?></div>
         	 <?php if ($userId==$najavenID) {?>
@@ -216,10 +275,12 @@ mysqli_query($link, $sql);
        	<?php } ?>
        	</div>
         <?php } ?>
-    <br />
+        </div>
+    <br /><br />
     <!-- PROJECTS END-->
      <!-- EXPERIENCES -->
-        <h4>Искуства</h4>
+        <button id="expBtn" class="btn btn col-md-12" style="margin-top: -2.5%"><b>Искуства</b></button>
+        <div id="expContent" style="display: none; margin-top: 4.5%">
          <?php if ($userId==$najavenID) {?>
         <ul>
         	<li class="pull-right btn btn-primary" style="margin-top: -3.5%"  data-toggle="modal" data-target=".bs-modal-sm4">Додај искуство</li></ul>
@@ -241,9 +302,13 @@ mysqli_query($link, $sql);
         <a href="?id=<?php echo $userId."&delete2=".$expId; ?>" class="delete2"><span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer; margin-top: -2%;margin-right: 1%"></span></a>
        	<?php } ?>
         </div>
+        
         <?php } ?>
+        </div>
     </div>
     <!-- EXPERIENCES END-->
+ 
+  
    </div>
     <!-- CONTAINER END -->
     
@@ -386,6 +451,23 @@ mysqli_query($link, $sql);
 		
 		return false;
 		});
+		});
+		
+		//toggle buttons
+		$("#expBtn").click(function(){
+			$("#expContent").toggle();
+			$("#prContent").hide();
+			$("#IdContent").hide();
+		});
+		$("#prBtn").click(function(){
+			$("#prContent").toggle();
+			$("#expContent").hide();
+			$("#IdContent").hide();
+		});
+		$("#IdBtn").click(function(){
+			$("#IdContent").toggle();
+			$("#expContent").hide();
+			$("#prContent").hide();
 		});
    </script>
 
