@@ -306,7 +306,7 @@ if (isset($_POST['cancelApp']))
 		    
 		
 		    // We increase the value by 2 because we limit the results by 2
-		    document.getElementById("result_no").value = Number(val)+2;
+		    document.getElementById("result_no").value = Number(val)+2000000;
 		  }
 		  });
 		}

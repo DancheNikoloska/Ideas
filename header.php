@@ -275,9 +275,9 @@ if (isset($_POST['addIdeaSubmit'])){
         
       <div class="modal-body">
          <!-- Nav tabs -->
-									  <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
-									    <li role="presentation" id="LoginLi" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
-									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
+									  <ul  class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
+									    <li  role="presentation" id="LoginLi" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
+									    <li  role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
 									    
 									  </ul>
 									
@@ -313,11 +313,11 @@ if (isset($_POST['addIdeaSubmit'])){
     </div>
   </div>
 </div>
-<script>
+<script>/*
    $(".nav a").on("click", function(){
    $(".nav").find(".active").removeClass("active");
    $(this).parent().addClass("active");
-});
+});*/
 
   //li active vo Najava
    $("#loginActive").on("click",function(){
@@ -333,3 +333,4 @@ if (isset($_POST['addIdeaSubmit'])){
 		 
 		}
 	</script>
+	

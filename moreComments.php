@@ -6,7 +6,7 @@ $ideaId=$_GET['ideaId'];
 $no = $_POST['getresult'];
 //echo $ideaId;
  
-		$sql=mysqli_query($link, "select commentID,UserID,Text,Username,date(Time) as d  from comments c inner join users u on u.UserID=c.idUser where idIdea='$ideaId' order by Time desc limit $no,2");
+		$sql=mysqli_query($link, "select commentID,UserID,Text,Username,date(Time) as d  from comments c inner join users u on u.UserID=c.idUser where idIdea='$ideaId' order by Time desc limit $no,20000");
 		while($row=mysqli_fetch_assoc($sql))
 		{ 
 			$userId=$row['UserID'];

@@ -275,6 +275,7 @@
     	}
 	  });
 	  
+	  
 	  $(document).ready(function(){
 	   	$("#aboutus").removeClass('active');
 	   	$("#homeicon").addClass('active');
