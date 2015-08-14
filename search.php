@@ -30,11 +30,13 @@ if (isset($_POST['sending']))
 		}
 	else {
 		if ($q==1){
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc");
+			//echo "Q IS 1";
+			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc limit 6");
 		   
 		}
 		else if($q==2){
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc");
+			//echo "Q IS 2";
+			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 6");
 		  
 		}
 		
@@ -64,12 +66,13 @@ if (isset($_POST['sending']))
 		else echo "Нема резултати."; 
 	}
 else{
+	echo "NOT SEARCHING";
 //no search
 		if ($q==1)
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc");
+			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc limit 6");
 		
 		else
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc");
+			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 6");
 		
 		
 		if (mysqli_num_rows($query)!=0){

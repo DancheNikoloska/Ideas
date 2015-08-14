@@ -4,7 +4,9 @@
 	
 	function loadmore()
 	{
+		alert(document.getElementById("result_no").value);
 	  var val = document.getElementById("result_no").value;
+	  
 	  $.ajax({
 	  type: 'post',
 	  url: 'fetch.php',
@@ -15,7 +17,7 @@
 	    var content = document.getElementById("result_para");
 	    content.innerHTML = content.innerHTML+response;
 	
-	    // We increase the value by 2 because we limit the results by 2
+	    // We increase the value by 6 because we limit the results by 6
 	    document.getElementById("result_no").value = Number(val)+6;
 	  }
 	  });
@@ -27,7 +29,9 @@
 				type:'post',
 				url:'search.php',
 				data:{"sending":str,"orderIdeas":str2},
-				success:function(data){document.getElementById("result_para").innerHTML=data;}
+				success:function(data){document.getElementById("result_para").innerHTML=data;
+				
+				}
 				
 				
 			});
@@ -43,7 +47,8 @@
 				type:'post',
 				url:'search.php',
 				data:{"orderIdeas":str,"sending":str2},
-				success:function(data){document.getElementById("result_para").innerHTML=data;}
+				success:function(data){document.getElementById("result_para").innerHTML=data;
+				document.getElementById("result_no").value= 6;}
 				
 				
 			});
@@ -144,11 +149,12 @@
                         </div>
                     </div>
 					<?php } ?>
-					<input type="hidden" id="result_no" value="6">
+					
                     
                   
                    
                 </div><!--/.row-->
+                <input type="hidden" id="result_no" value="6">
                <br />
             </div><!--/.box-->
            
@@ -171,7 +177,11 @@
                 <div class="center">
                     <h2>За нас</h2>
                     <p class="lead">
-                    "Имам идеја" е веб апликација...
+                    "Имам идеја" е веб апликација наменета за сите оние коишто имаат идеја за софтверска апликација. 
+                    Изработена е како дипломска работа од страна на Даница Николоска. Основната идеја и цел на истата е
+                    секој да може да ја сподели својата идеја за бизнис или апликација и притоа лесно да најде останати
+                    заинтересирани корисници со коишто би можело да се формира тим. 
+                   
                     </p>
                 </div>
                 <div class="gap"></div>
