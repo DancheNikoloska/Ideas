@@ -3,7 +3,19 @@
 include_once 'database.php';
 
  $no = $_POST['getresult'];
- $select=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit $no,6");
+ 
+ $order= "Date";
+ if (isset($_POST['order'])){
+    	$order=$_POST['order'];
+         if($order==0)
+	      $order= "Date";	
+		 else if($order==1)
+		  $order= "Rating";
+		 else if($order==2)
+		  $order= "Date";
+		 
+ }
+ $select=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.".$order." desc limit $no,6");
 					 
  while($row = mysqli_fetch_assoc($select))
         {

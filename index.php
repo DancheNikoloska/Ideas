@@ -4,14 +4,15 @@
 	
 	function loadmore()
 	{
-		alert(document.getElementById("result_no").value);
+		//alert(document.getElementById("result_no").value);
 	  var val = document.getElementById("result_no").value;
 	  
 	  $.ajax({
 	  type: 'post',
 	  url: 'fetch.php',
 	  data: {
-	  getresult:val
+	  getresult:val,
+	  "order": document.getElementById("orderFilter").value
 	  },
 	  success: function (response) {
 	    var content = document.getElementById("result_para");

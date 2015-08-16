@@ -252,7 +252,7 @@ if (isset($_POST['cancelApp']))
 		<?php } ?>
 		<input type="hidden" id="result_no" value="2">
 	</div>
-		  <input type="button" class="btn btn-primary pull-right" style="width: 30%" value="Повеќе" onclick="loadmoreC()" />
+		  <input type="button" class="btn btn-primary pull-right" style="width: 30%;<?php if($row['UserID']==null || isset($row['UserID'])) echo "visibility:hidden;"; ?>" value="Повеќе" onclick="loadmoreC()" />
 		
 	
 
