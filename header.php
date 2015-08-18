@@ -92,7 +92,8 @@ if (isset($_POST['addIdeaSubmit'])){
     <title>Имам идеја</title>
     <script src="js/jquery.js"></script>
     <script src="js/star-rating.min.js"></script>
-    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link href="css/font-awesome.css" rel="stylesheet";
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -165,7 +166,7 @@ if (isset($_POST['addIdeaSubmit'])){
                 <div class="collapse navbar-collapse">
                 	
                     <ul class="nav navbar-nav" <?php  if ($_SESSION['user']=="") echo 'style="margin-left: 5%"'; ?>>
-                        <li id="homeicon" class="active"><a href="index.php"><i class="icon-home"></i></a></li>
+                        <li id="homeicon" class="active"><a href="index.php" style="height:98%"><span class="glyphicon glyphicon-home"></span></a></li>
                         <li style=" <?php if ($_SESSION['user']=="") echo 'display:none'; ?>"><a href="#addIdea" data-toggle="modal" data-target=".bs-modal-sm">Додај идеја</a></li> 
                         <li><a href="#ideas">Идеи</a></li>
                         <li id="aboutus"><a href="#about-us">За нас</a></li>

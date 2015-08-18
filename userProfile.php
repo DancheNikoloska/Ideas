@@ -153,19 +153,15 @@ if (isset($_POST['deleteIdea']))
                         <p>
                            <?php echo $about; ?>
                         </p>
+                        <p><i><?php echo $email; ?></i></p>
                     </div>
                     <div>
-                        <a href="#" class="btn btn-social btn-facebook">
-                            <i class="fa fa-facebook"></i>&nbsp; Facebook</a>
-                        <a href="#" class="btn btn-social btn-google">
-                            <i class="fa fa-google-plus"></i>&nbsp; Google</a>
-                        <a href="#" class="btn btn-social btn-twitter">
-                            <i class="fa fa-twitter"></i>&nbsp; Twitter </a>
-                        <a href="#" class="btn btn-social btn-linkedin">
-                            <i class="fa fa-linkedin"></i>&nbsp; Linkedin </a>
-                        <a href="mailto:<?php echo $email; ?>" class="btn btn-social btn-google" data-toggle="tooltip" title="<?php echo $email; ?>">
+                    	 <a href="mailto:<?php echo $email; ?>" class="btn btn-social btn-google" data-toggle="tooltip" title="<?php echo $email; ?>">
                             <i class="fa fa-envelope-o"></i>&nbsp; Email </a>
+                        <a href="https://slack.com/create#email" class="btn btn-default" data-toggle="tooltip" title="Slack chat">
+                            <i class="fa fa-slack"></i>&nbsp; Slack </a>
                     </div><br />
+              
                   </div>
                 
               </div>
@@ -232,6 +228,7 @@ if (isset($_POST['deleteIdea']))
 			
       
         <?php } ?>
+        
        </div>
         <div style="width:49%" class="col-md-6 pull-right">
        	<h5>Член во тим:</h5> 
