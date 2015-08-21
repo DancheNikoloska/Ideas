@@ -17,16 +17,64 @@ if (isset($_POST['signUpButton']))
 	$about=$_POST['about'];
 	$password=$_POST['password'];
 	$image=$_FILES['image']['name'];
+	echo $image;
 	$type=1;	
 if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
 {
-$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'$image')";
+	if($image==null || $image=='' || empty($image)){
+		$image="default.jpg";
+	}
+$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'images/UserImg/$image')";
 if(mysqli_query($link, $sql)==false)
 echo mysqli_error($link);
 else {
-	{
-		echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+	
+	if($image!="default.jpg"){
+		$target_dir="images/UserImg/";
+		$target_file= $target_dir. basename($_FILES["image"]["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		// Check if image file is a actual image or fake image
+		
+		    $check = getimagesize($_FILES["image"]["tmp_name"]);
+		    if($check !== false) {
+		        $uploadOk = 1;
+		    } else {
+		        $uploadOk = 0;
+		    }
+		
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Името на сликата веќе постои!</div> ";
+		    $uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["image"]["size"] > 500000) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Сликата е преголема(максимум 5MB)!</div> ";
+		    $uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Само JPG, JPEG, PNG & GIF формати се дозволени!</div> ";
+		    $uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика неможесе да се прикачи! </div> ";
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+		        echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+		    } else {
+		        echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика неможесе да се прикачи! </div> ";
+		    }
+		}
+	}else{
+		 echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
 	}
+	
+		
+	
 }
 }
 }
@@ -93,7 +141,7 @@ if (isset($_POST['addIdeaSubmit'])){
     <title>Имам идеја</title>
     <script src="js/jquery.js"></script>
     <script src="js/star-rating.min.js"></script>
-    <script src="js/civem.js"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link href="css/font-awesome.css" rel="stylesheet";
@@ -102,7 +150,7 @@ if (isset($_POST['addIdeaSubmit'])){
     <link href="css/test.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/star-rating.min.css" rel="stylesheet">
-   
+    <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
