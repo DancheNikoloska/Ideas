@@ -161,7 +161,7 @@ if (isset($_POST['addIdeaSubmit'])){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="images/logo4.png" width="300px" height="200px" style="margin-top:-43%;margin-left:-20%" /></a>
+                    <a class="navbar-brand" href="index.php"><img src="images/covecence.jpg" width="80px" height="60px" style="margin-top:-3%;margin-left:-20%;" /></a>
                 </div>
                 <div class="collapse navbar-collapse">
                 	
