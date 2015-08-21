@@ -286,24 +286,27 @@ if (isset($_POST['addIdeaSubmit'])){
 									  <div class="tab-content">
 									    <div role="tabpanel" class="tab-pane active" id="Login"><br />
 									    	<form action="#" method="post">
-                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1"><br />
-                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1"><br />
+                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1" required oninvalid="setCustomValidity('Ве молиме внесете корисничко име.')"><br />
+                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1" required oninvalid="setCustomValidity('Ве молиме внесете лозинка')"><br />
                                              <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Најави се" name="loginButton"/></div><br />
                                              
                                              </form>
                                         </div>
 									    <div role="tabpanel" class="tab-pane" id="Register"><br />
-									    	<form action="#" method="post" enctype="multipart/form-data">
-									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име"><br />
-                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме"><br />
-                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име"><br />
-                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка"><br />
-                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил"><br />
-                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас"></textarea><br />
+									    	<form id="register" action="#" method="post" enctype="multipart/form-data">
+									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име*" ><br />
+                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" ><br />
+                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име*" ><br />
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка*" ><br />
+                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" ><br />
+                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас*" ></textarea><br />
                                              <input readonly="true" id="fileText" style="width: 65% !important;">
-											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
-												<input type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
+											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика*</button>
+												<input  type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
+                                             <label id="required" class="text-center col-md-12" style="color:red;font-size: 0.9em !important;margin-top: -5%;">Пополнете ги сите полиња.</label>
+                                             <label id="email" class="text-center col-md-12" style="color:red;font-size: 0.9em !important;">Внесете валиден емаил.</label>
                                              <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             
                                              </form>
 									    </div>
 									  </div>
@@ -315,6 +318,17 @@ if (isset($_POST['addIdeaSubmit'])){
   </div>
 </div>
 <script>
+$('#register').on('submit', function() {
+    var name=$("#name").val();
+    var lastname= $("#lastname").val();
+    var username= $("#username").val();
+    var pass= $("#password").val();
+    var email= $("#email").val();
+    var about= $("#about").val();
+    var pic= $("#fileID").val();
+    
+    alert(name+" "+lastname+" "+pass+" "+email+" "+about+" "+pic);
+});
 
   //li active vo Najava
    $("#loginActive").on("click",function(){
