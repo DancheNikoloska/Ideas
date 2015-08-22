@@ -221,9 +221,9 @@
                             <div class="col-md-6">
                                 <address>
                                   
-                                    Илинденска бб, Скопје<br>
+                                    Радика 1, Скопје<br>
                                     Р.Македонија<br>
-                                    <abbr title="Phone">Тел:</abbr> (389) 78-111-222
+                                    <abbr title="Phone">Тел:</abbr> (389) 78-555-666
                                 </address>
                             </div>
                             <div class="col-md-6">
