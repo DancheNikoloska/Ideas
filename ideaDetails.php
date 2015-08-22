@@ -186,8 +186,34 @@ if (isset($_POST['cancelApp']))
 	<!-- twitter button -->
 	
 	<br /><br />
+	<!--team members -->
+	<?php 
+	$team=mysqli_query($link, "select * from team t inner join users u on u.UserID=t.UserID where t.IdeaID='$ideaId'");
+	 if (mysqli_num_rows($team)>0) {?>
+	<h4>Членови во тим:</h4>
+	<div class="col-md-12">
+	<ul class="list-group">
+	<?php 
+	//$team=mysqli_query($link, "select * from team t inner join users u on u.UserID=t.UserID where t.IdeaID='$ideaId'");
+	while ($row=mysqli_fetch_assoc($team)){
+		$userF=$row['FirstName'];
+		$userL=$row['LastName'];
+		$uId=$row['UserID'];
+		$image=$row['Image'];
+	?>
+	
+	<li class="list-group-item row">
+		<img class="icon-social" src="<?php echo $image.""; ?>" >
+		<a style="font-size: 1.2em;margin-top: -3%;" href="userProfile.php?id=<?php echo $row['UserID']; ?>"><?php echo " ".$userF." ".$userL;  ?></a>
+	</li>
+	<?php } ?>
+	</ul>
+	</div><?php } ?><br /><br />
 	<!-- applications from users -->
-	<?php  if ($najavenID==$leaderID) {?>
+	<?php $apl=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserID where a.IdeaID='$ideaId'") ;
+	 
+	?>
+	<?php  if ($najavenID==$leaderID&&mysqli_num_rows($apl)>0) {?>
 	<h4>Аплицирале:</h4><hr>
 	<div class="col-md-12">
 	<?php 

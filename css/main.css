@@ -21,6 +21,12 @@ a {
   -o-transition: 300ms;
   transition: 300ms;
 }
+
+.dropdownHover>a:hover, .dropdownHover>a:focus{
+	background-color: #BEE3F5 !important;
+	/* height:50px !important; */
+}
+
 .btn {
   font-weight: 300;
   border: 0;

@@ -1,3 +1,4 @@
+
 <?php
 
 include_once 'database.php';
@@ -15,12 +16,13 @@ include_once 'database.php';
 		  $order= "Date";
 		 
  }
+
  $select=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.".$order." desc limit $no,6");
 					 
  while($row = mysqli_fetch_assoc($select))
         {
           	?>
-						<div class="col-md-4 col-sm-6">
+						<div class="col-md-4 col-sm-6" style="height: 30%">
                         <div class="center"> 
                            <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="<?php echo $row['Image'] ?>" class="icon-lg"></a>
                             <a href="ideaDetails.php?ideaId=<?php echo $row['IdeaID'] ?>" style="color:black !important;"><h4><?php echo $row['Title'] ?></h4>
@@ -35,3 +37,4 @@ include_once 'database.php';
                     </div>
       <?php  }
       ?>
+ 
