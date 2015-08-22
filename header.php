@@ -333,13 +333,14 @@ if (isset($_POST['addIdeaSubmit'])){
 									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име*" required oninvalid="setCustomValidity('Името е задолжително')" oninput="setCustomValidity('')"><br />
                                              <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" required oninvalid="setCustomValidity('Презмето е задолжително')" oninput="setCustomValidity('')"><br />
                                            	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име*" required oninvalid="setCustomValidity('Корисничкото име е задолжително')" oninput="setCustomValidity('')"><br />
+                                            <span style="float: right;margin-top: -20%;margin-right: 2%;" id="user-result"></span>
                                             <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка*" required oninvalid="setCustomValidity('Лозинката е задолжителна')" oninput="setCustomValidity('')"><br />
                                              <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" required oninvalid="setCustomValidity('Задолжителен е валиден емаил')" oninput="setCustomValidity('')"><br />
                                              <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас*" required oninvalid="setCustomValidity('Задолжително е нешто за вас')" oninput="setCustomValidity('')"></textarea><br />
                                              <input readonly="true" id="fileText" style="width: 65% !important;">
-											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика*</button>
+											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>
 												<input  type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
-                                             <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
+                                             <div class="center"><input id="signUp" class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
                                              
                                              </form>
 									    </div>
@@ -351,6 +352,41 @@ if (isset($_POST['addIdeaSubmit'])){
     </div>
   </div>
 </div>
+<script>
+
+$("#username").keyup(function (e) { //user types username on inputfiled
+    var username = $(this).val(); //get the string typed by user
+    if(username.length==0){
+    	$("#user-result").html("");
+    }else{
+    $.post('check_username.php', {'username':username}, function(data) { //make ajax call to check_username.php
+    $("#user-result").html(data); //dump the data received from PHP page
+    });
+    }
+}); 
+
+//submit behavior
+$('#register').submit(function(e) {
+	//alert($("#user-result-img").attr("value"));
+	
+	/*
+	alert($("#user-result-img").attr("value")== "");
+	alert(($("#user-result-img").attr("value"))=="av");
+	alert(($("#user-result-img").attr("value"))=="<img src=\"images/available.png\" />" || $("#user-result-img").attr("value")== "");
+	*/
+	
+    //e.preventDefault();
+	if($("#user-result-img").attr("value")=="av" || $("#user-result-img").attr("value")== "")  {
+		
+		Form.checkValidity();
+		$("#register").submit();
+	}else{ 
+		//alert("in else");
+		return false;
+	 
+	}
+});
+</script>
 <script>
 
 
