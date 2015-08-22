@@ -24,7 +24,7 @@ if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'
 	if($image==null || $image=='' || empty($image)){
 		$image="default.jpg";
 	}
-$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'images/UserImg/$image')";
+$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Image) values('$username','$email','$name','$lastname','$about','$password','images/UserImg/$image')";
 if(mysqli_query($link, $sql)==false)
 echo mysqli_error($link);
 else {

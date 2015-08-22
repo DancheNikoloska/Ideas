@@ -182,14 +182,16 @@ if (isset($_POST['deleteIdea']))
                 <div class="col-md-4">
                 	<div id="imgContainer">
 					  <form class="col-md-12" enctype="multipart/form-data" action="image_upload_demo_submit.php" method="post" name="image_upload_form" id="image_upload_form">
-					    <div style="width: 70%;margin-left: 15%;" class="col-md-12" id="imgArea"><img style="height:200px;width:500px;" class="img-responsive center" src="<?php echo $img; ?>">
+					    <div style="width: 70%;margin-left: 15%;" class="col-md-12" id="imgArea"><img style="height:220px;width:370px;" class="img-responsive center" src="<?php echo $img; ?>">
 					      <div class="progressBar">
 					        <div class="bar"></div>
 					        <div class="percent">0%</div>
 					      </div>
-					      <div id="imgChange"><span style="color:black;"><b>Смени фотографија</b></span>
+					      <?php if ($userId==$najavenID){ ?>
+					      <div id="imgChange"><span style="color:black;"><b>Промени фотографија</b></span>
 					        <input type="file" accept="image/*" name="image_upload_file" id="image_upload_file">
 					      </div>
+					      <?php } ?>
 					    </div>
 					  </form>
 					</div>
