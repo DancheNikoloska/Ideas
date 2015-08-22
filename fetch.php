@@ -22,7 +22,7 @@ include_once 'database.php';
           	?>
 						<div class="col-md-4 col-sm-6">
                         <div class="center"> 
-                           <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="images/UserImg/<?php echo $row['Image'] ?>" class="icon-lg"></a>
+                           <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="<?php echo $row['Image'] ?>" class="icon-lg"></a>
                             <a href="ideaDetails.php?ideaId=<?php echo $row['IdeaID'] ?>" style="color:black !important;"><h4><?php echo $row['Title'] ?></h4>
                             <p><?php 
                             $str = wordwrap($row['Description'], 40);

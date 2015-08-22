@@ -129,7 +129,7 @@
 						?>
 						<div class="col-md-4 col-sm-6">
                         <div class="center"> 
-                           <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="images/UserImg/<?php echo $row['Image'] ?>" class="icon-lg"></a>
+                           <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="<?php echo $row['Image'] ?>" class="icon-lg"></a>
                             <a href="ideaDetails.php?ideaId=<?php echo $row['IdeaID'] ?>" style="color:black !important;"><h4><?php echo $row['Title'] ?></h4>
                             <p><?php 
                             $str = wordwrap($row['Description'], 40);
@@ -221,9 +221,9 @@
                             <div class="col-md-6">
                                 <address>
                                   
-                                    Илинденска бб, Скопје<br>
+                                    Радика 1, Скопје<br>
                                     Р.Македонија<br>
-                                    <abbr title="Phone">Тел:</abbr> (389) 78-111-222
+                                    <abbr title="Phone">Тел:</abbr> (389) 78-555-666
                                 </address>
                             </div>
                             <div class="col-md-6">
