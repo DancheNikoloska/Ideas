@@ -17,16 +17,64 @@ if (isset($_POST['signUpButton']))
 	$about=$_POST['about'];
 	$password=$_POST['password'];
 	$image=$_FILES['image']['name'];
+	echo $image;
 	$type=1;	
 if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
 {
-$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'$image')";
+	if($image==null || $image=='' || empty($image)){
+		$image="default.jpg";
+	}
+$sql="INSERT INTO users(Username, Email, FirstName, LastName, About,Password,Type,Image) values('$username','$email','$name','$lastname','$about','$password',$type,'images/UserImg/$image')";
 if(mysqli_query($link, $sql)==false)
 echo mysqli_error($link);
 else {
-	{
-		echo "<div class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+	
+	if($image!="default.jpg"){
+		$target_dir="images/UserImg/";
+		$target_file= $target_dir. basename($_FILES["image"]["name"]);
+		$uploadOk = 1;
+		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+		// Check if image file is a actual image or fake image
+		
+		    $check = getimagesize($_FILES["image"]["tmp_name"]);
+		    if($check !== false) {
+		        $uploadOk = 1;
+		    } else {
+		        $uploadOk = 0;
+		    }
+		
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Името на сликата веќе постои!</div> ";
+		    $uploadOk = 0;
+		}
+		// Check file size
+		if ($_FILES["image"]["size"] > 500000) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Сликата е преголема(максимум 5MB)!</div> ";
+		    $uploadOk = 0;
+		}
+		// Allow certain file formats
+		if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span> Само JPG, JPEG, PNG & GIF формати се дозволени!</div> ";
+		    $uploadOk = 0;
+		}
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика неможесе да се прикачи! </div> ";
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+		        echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+		    } else {
+		        echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика неможесе да се прикачи! </div> ";
+		    }
+		}
+	}else{
+		 echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
 	}
+	
+		
+	
 }
 }
 }
@@ -45,6 +93,8 @@ if (isset($_POST['loginButton']))
 			$row=mysqli_fetch_assoc($res);
 			$_SESSION["user"]=$row['Username'];
 			$_SESSION["userID"]=$row['UserID'];
+		}else {
+			echo "<div class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Невалидни корисничко име и/или лозинка!</div>";
 		}
 		
 	}
@@ -62,20 +112,19 @@ if (isset($_POST['addIdeaSubmit'])){
 		$desc=$_POST['desc'];
 		$tech=$_POST['tech'];
 		$keyw=$_POST['keyw'];
-		$cate=$_POST['cate'];
+		
 		$date=date("Y-m-d");
-		$c=mysqli_query($link, "select CategoryID from category where Title='$cate'");
-		while ($row=mysqli_fetch_assoc($c))
-		{$cateID=$row['CategoryID'];}
-		$sql2="INSERT INTO ideas(LeaderID,Title,Description,CategoryID,Technologies,Keywords,Approved,Date) 
-		values($id,'$title','$desc',$cateID,'$tech','$keyw',0,'$date')";
+		
+		
+		$sql2="INSERT INTO ideas(LeaderID,Title,Description,Technologies,Keywords,Approved,Date) 
+		values($id,'$title','$desc','$tech','$keyw',0,'$date')";
 		if(mysqli_query($link, $sql2)==false)
 		{
 			echo mysqli_error($link);
 		}
 		else {
 			{
-		echo "<div id=\"projectAlert3\" class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Идејата беше додадена. </div>";
+		echo "<div id=\"projectAlert3\" class=\"hide-alert alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Идејата беше додадена. </div>";
 			}
 		}
 	}
@@ -92,6 +141,7 @@ if (isset($_POST['addIdeaSubmit'])){
     <title>Имам идеја</title>
     <script src="js/jquery.js"></script>
     <script src="js/star-rating.min.js"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link href="css/font-awesome.css" rel="stylesheet";
@@ -100,7 +150,7 @@ if (isset($_POST['addIdeaSubmit'])){
     <link href="css/test.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/star-rating.min.css" rel="stylesheet">
-   
+    <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
@@ -208,21 +258,7 @@ if (isset($_POST['addIdeaSubmit'])){
                 <div class="row">
                  
 				 <form class="form-horizontal" action="#" method="post">
-				 	 <div class="form-group">
-				    <label class="col-sm-2 control-label">Категорија</label>
-				    <div class="col-sm-4">
-				      <select class="form-control" name="cate">
-				      	<?php 
-				      	$query=mysqli_query($link, "select * from category");
-						while ($row=mysqli_fetch_assoc($query))
-						{
-						echo "<option>$row[Title]</option>";	
-						}
-				      	
-				      	?>
-				      </select>
-				    </div>
-				  </div>
+				 	 
 				  <div class="form-group">
 				    <label class="col-sm-2 control-label">Тема</label>
 				    <div class="col-sm-10">
@@ -285,26 +321,24 @@ if (isset($_POST['addIdeaSubmit'])){
 									  <!-- Tab panes -->
 									  <div class="tab-content">
 									    <div role="tabpanel" class="tab-pane active" id="Login"><br />
-									    	<form action="#" method="post">
-                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1" required oninvalid="setCustomValidity('Ве молиме внесете корисничко име.')"><br />
-                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1" required oninvalid="setCustomValidity('Ве молиме внесете лозинка')"><br />
+									    	<form action="#" method="post">	
+                                             <input class="form-control" type="text" placeholder="Корисничко име" name="username1" required oninvalid="setCustomValidity('Ве молиме внесете корисничко име')" oninput="setCustomValidity('')"><br />
+                                             <input class="form-control" type="text" placeholder="Лозинка" name="password1" required oninvalid="setCustomValidity('Ве молиме внесете лозинка')" oninput="setCustomValidity('')"><br />
                                              <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Најави се" name="loginButton"/></div><br />
                                              
                                              </form>
                                         </div>
 									    <div role="tabpanel" class="tab-pane" id="Register"><br />
 									    	<form id="register" action="#" method="post" enctype="multipart/form-data">
-									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име*" ><br />
-                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" ><br />
-                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име*" ><br />
-                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка*" ><br />
-                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" ><br />
-                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас*" ></textarea><br />
+									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име*" required oninvalid="setCustomValidity('Името е задолжително')" oninput="setCustomValidity('')"><br />
+                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" required oninvalid="setCustomValidity('Презмето е задолжително')" oninput="setCustomValidity('')"><br />
+                                           	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име*" required oninvalid="setCustomValidity('Корисничкото име е задолжително')" oninput="setCustomValidity('')"><br />
+                                            <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка*" required oninvalid="setCustomValidity('Лозинката е задолжителна')" oninput="setCustomValidity('')"><br />
+                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" required oninvalid="setCustomValidity('Задолжителен е валиден емаил')" oninput="setCustomValidity('')"><br />
+                                             <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас*" required oninvalid="setCustomValidity('Задолжително е нешто за вас')" oninput="setCustomValidity('')"></textarea><br />
                                              <input readonly="true" id="fileText" style="width: 65% !important;">
 											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика*</button>
 												<input  type="file" name="image" id="fileID" onchange="document.getElementById('fileText').value= this.value" style="visibility: hidden;" />
-                                             <label id="required" class="text-center col-md-12" style="color:red;font-size: 0.9em !important;margin-top: -5%;">Пополнете ги сите полиња.</label>
-                                             <label id="email" class="text-center col-md-12" style="color:red;font-size: 0.9em !important;">Внесете валиден емаил.</label>
                                              <div class="center"><input class="btn" style="color: white; background-color: #5CB8E6;" type="submit" value="Регистрирај се" name="signUpButton"/></div><br />
                                              
                                              </form>
@@ -318,17 +352,7 @@ if (isset($_POST['addIdeaSubmit'])){
   </div>
 </div>
 <script>
-$('#register').on('submit', function() {
-    var name=$("#name").val();
-    var lastname= $("#lastname").val();
-    var username= $("#username").val();
-    var pass= $("#password").val();
-    var email= $("#email").val();
-    var about= $("#about").val();
-    var pic= $("#fileID").val();
-    
-    alert(name+" "+lastname+" "+pass+" "+email+" "+about+" "+pic);
-});
+
 
   //li active vo Najava
    $("#loginActive").on("click",function(){
@@ -338,9 +362,11 @@ $('#register').on('submit', function() {
    
 </script>
   <script>
+
 		setTimeout(fade_out, 2000);
 		function fade_out() {
 		  $("#projectAlert3").fadeOut().empty();
+		  $(".hide-alert").fadeOut().empty();
 		 
 		}
 	</script>

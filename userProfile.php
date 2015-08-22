@@ -1,6 +1,44 @@
 
 <?php 
 include_once 'header.php';
+?>
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.form.js"></script>
+<script>
+$(document).on('change', '#image_upload_file', function () {
+var progressBar = $('.progressBar'), bar = $('.progressBar .bar'), percent = $('.progressBar .percent');
+
+$('#image_upload_form').ajaxForm({
+    beforeSend: function() {
+		progressBar.fadeIn();
+        var percentVal = '0%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        bar.width(percentVal)
+        percent.html(percentVal);
+    },
+    success: function(html, statusText, xhr, $form) {		
+		obj = $.parseJSON(html);	
+		if(obj.status){		
+			var percentVal = '100%';
+			bar.width(percentVal)
+			percent.html(percentVal);
+			$("#imgArea>img").prop('src',obj.image_medium);			
+		}else{
+			alert(obj.error);
+		}
+    },
+	complete: function(xhr) {
+		progressBar.fadeOut();			
+	}	
+}).submit();		
+
+});
+</script>
+<?php
 include_once 'database.php';
 if ($_SESSION['user']==true&&isset($_SESSION['user'])){
 $najavenID=$_SESSION["userID"];}
@@ -142,12 +180,26 @@ if (isset($_POST['deleteIdea']))
         <section style="padding-bottom: 50px; padding-top: 120px;">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="images/UserImg/<?php echo $img; ?>" style="margin-left: 25%" width="155px" height="155px" class="img-responsive center"  />
+                	<div id="imgContainer">
+					  <form class="col-md-12" enctype="multipart/form-data" action="image_upload_demo_submit.php" method="post" name="image_upload_form" id="image_upload_form">
+					    <div style="width: 70%;margin-left: 15%;" class="col-md-12" id="imgArea"><img style="height:200px;width:500px;" class="img-responsive center" src="<?php echo $img; ?>">
+					      <div class="progressBar">
+					        <div class="bar"></div>
+					        <div class="percent">0%</div>
+					      </div>
+					      <div id="imgChange"><span style="color:black;"><b>Смени фотографија</b></span>
+					        <input type="file" accept="image/*" name="image_upload_file" id="image_upload_file">
+					      </div>
+					    </div>
+					  </form>
+					</div>
+                    <!--<img src="images/UserImg/<?php echo $img; ?>" style="margin-left: 25%" width="155px" height="155px" class="img-responsive center"  /> -->
+                    
                     <br />
                     <br />
                     </div>
                   <div class="col-md-8">
-                  	  <div class="alert alert-info" style="height: 100%;background-color: #BEE3F5 !important;border-color:#BEE3F5 !important;color:#666 !important ">
+                  	  <div class="alert alert-info" style="height: 50%;background-color: #BEE3F5 !important;border-color:#BEE3F5 !important;color:#666 !important ">
                         <h2><?php echo $firstname.' '.$lastname;  ?> </h2>
                         <h4><?php echo $username; ?> </h4>
                         <p>
