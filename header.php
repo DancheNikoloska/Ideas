@@ -314,7 +314,7 @@ if (isset($_POST['addIdeaSubmit'])){
          <!-- Nav tabs -->
 									  <ul class="nav nav-pills" style="border-bottom: 1px solid #BEE3F5" role="tablist">
 									    <li role="presentation" id="LoginLi" class="active"><a href="#Login" aria-controls="home" role="tab" data-toggle="tab" style="color: #666;">Најава</a></li>
-									    <li role="presentation"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
+									    <li role="presentation" id="RegisterLi"><a href="#Register" aria-controls="profile" role="tab" data-toggle="tab" style="color: #666;">Регистрација</a></li>
 									    
 									  </ul>
 									
@@ -394,6 +394,8 @@ $('#register').submit(function(e) {
    $("#loginActive").on("click",function(){
    	 $("#Login").addClass('active');
    	 $("#LoginLi").addClass('active');
+   	 $("#RegisterLi").removeClass('active');
+   	 $("#Register").removeClass('active');
    });
    
 </script>
