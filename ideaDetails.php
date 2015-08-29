@@ -202,9 +202,13 @@ if (isset($_POST['cancelApp']))
 		$image=$row['Image'];
 	?>
 	
-	<li class="list-group-item row">
-		<img class="icon-social" src="<?php echo $image.""; ?>" >
-		<a style="font-size: 1.2em;margin-top: -3%;" href="userProfile.php?id=<?php echo $row['UserID']; ?>"><?php echo " ".$userF." ".$userL;  ?></a>
+	<li class="list-group-item">
+		<table>
+			<tr>
+		<td><a href="userProfile.php?id=<?php echo $row['UserID']; ?>"><img class="icon-social" src="<?php echo $image.""; ?>" ></a></td>
+		<td style="padding-left: 12px"><a style="font-size: 1.2em;margin-top: -3% !important;" href="userProfile.php?id=<?php echo $row['UserID']; ?>"><?php echo " ".$userF." ".$userL;  ?></a></td>
+			</tr>
+		</table>
 	</li>
 	<?php } ?>
 	</ul>

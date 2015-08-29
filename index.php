@@ -132,7 +132,7 @@
                            <a href="userProfile.php?id=<?php echo $row['UserID'] ?>" ><img src="<?php echo $row['Image'] ?>" class="icon-lg"></a>
                             <a href="ideaDetails.php?ideaId=<?php echo $row['IdeaID'] ?>" style="color:black !important;"><h4><?php echo $row['Title'] ?></h4>
                             <p><?php 
-                            $str = wordwrap($row['Description'], 40);
+                            $str = wordwrap($row['Description'], 80);
 							$str = explode("\n", $str);
 							$str = $str[0] . ' ...';
                             echo $str; ?>
@@ -165,16 +165,21 @@
   
     <section id="about-us">
         <div class="container">
-            <div class="box">
+            <div class="box"><br />
                 <div class="center">
-                    <h2>За нас</h2>
+                    <span style="font-size:3em">За нас</span><br /><br />
                     <p class="lead">
-                    "Имам идеја" е веб апликација наменета за сите оние коишто имаат идеја за софтверска апликација. 
-                    Изработена е како дипломска работа од страна на Даница Николоска. Основната идеја и цел на истата е
-                    секој да може да ја сподели својата идеја за бизнис или апликација и притоа лесно да најде останати
-                    заинтересирани корисници со коишто би можело да се формира тим. 
+                    <b>ИмамИдеја</b> е веб апликација наменета за сите оние коишто имаат идеја за софтверска апликација каква што сметаат дека недостига на пазарот или пак 
+                    сакаат да учествуваат во остварување на нечија друга. <br /><br />
+                 	За предложените идеи може да се дискутира, да се гласа и истите да се споделуваат.<br /><br />
+                 	Корисниците кои се заинтересирани за остварување на нечија идеја аплицираат за истата и на тој начин се формира тим.
+                    
+                    
                    
                     </p>
+                    
+                    <img class="img-responsive" style="margin-left: 15%"  src="images/aboutImage.gif" width="70%" height="40%" />
+                   
                 </div>
                 <div class="gap"></div>
                

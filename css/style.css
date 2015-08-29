@@ -91,7 +91,7 @@
 	width: 100%;
 }
 #imgChange {
-	background: url("../images/overlay.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+	background-color: lightgray;
 	bottom: 0;
 	color: #FFFFFF;
 	display: block;
@@ -103,6 +103,7 @@
 	margin-left: 5%;
 	width: 90%;
 	top: 112%;
+	opacity: 0.8;
 }
 #imgChange input[type="file"] {
 	bottom: 0;
