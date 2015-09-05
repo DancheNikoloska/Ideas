@@ -15,8 +15,9 @@ else $q=2;
 if (isset($_POST['sending']))
 {
 	
+	$sql="";
 	$data=mysqli_real_escape_string($link, $_POST['sending']); 
-	$data=strtolower($data);
+	$data=mb_strtolower($data);
 	if (!empty($data)){
 		if ($q==1){
 		$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Description COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Rating desc";
@@ -24,19 +25,22 @@ if (isset($_POST['sending']))
 			
 		}
 		else if($q==2){
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Description COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Date desc");
+			$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Description COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Date desc";
+			$query=mysqli_query($link,$sql);
 		   
 		}
 		}
 	else {
 		if ($q==1){
 			//echo "Q IS 1";
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc limit 6");
+			$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Rating desc limit 6";
+			$query=mysqli_query($link,$sql);
 		   
 		}
 		else if($q==2){
+			$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 6";
 			//echo "Q IS 2";
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID order by i.Date desc limit 6");
+			$query=mysqli_query($link,$sql);
 		  
 		}
 		
@@ -63,7 +67,7 @@ if (isset($_POST['sending']))
       <?php  }
       
 		}
-		else echo "Нема резултати."; 
+		else echo "Нема резултати.";
 	}
 else{
 	echo "NOT SEARCHING";
