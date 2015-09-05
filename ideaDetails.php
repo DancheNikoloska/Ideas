@@ -17,7 +17,7 @@ while ($row=mysqli_fetch_assoc($res))
 	
 	$title=$row['Title'];
 	$desc=$row['Description'];
-	$keyw=$row['Keywords'];
+	
 	$leader=$row['Username'];
 	$leaderName=$row['FirstName'];
 	$leaderLast=$row['LastName'];
@@ -53,6 +53,7 @@ while ($row=mysqli_fetch_assoc($res))
 	{
 		$com=$_POST['com'];
 		mysqli_query($link, "INSERT INTO comments(Text,idUser,idIdea,Time) values('$com','$najavenID','$ideaId',NOW())");
+		
 	}
 	
 	//delete comments
@@ -63,15 +64,20 @@ while ($row=mysqli_fetch_assoc($res))
 	
 	$sql = "delete from comments where commentID='$id'";
 	mysqli_query($link, $sql);
+	
 	}
 	
 //apliciraj
 
 if (isset($_POST['apliciraj']))
 {
-	if (mysqli_query($link, "Insert into applications values('$najavenID','$ideaId',0)")==false)
-	echo mysqli_error($link);
+	$query="select * from applications where UserID='$najavenID' and IdeaID='$ideaId'";
+	$result=mysqli_query($link, $query);
+	if (mysqli_num_rows($result)==0){
+	mysqli_query($link, "Insert into applications values('$najavenID','$ideaId',0)");
+	//echo mysqli_error($link);
 	
+	}
 }
 
 //cancel application
@@ -79,6 +85,7 @@ if (isset($_POST['cancelApp']))
 {
 	if (mysqli_query($link, "Delete from applications where UserID='$najavenID' and IdeaID='$ideaId'")==false)
 	echo mysqli_error($link);
+	
 	
 }
 
@@ -92,6 +99,7 @@ if (isset($_POST['cancelApp']))
 			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
 			echo mysqli_error($link);	
 			
+			
 		}
 //deny application
 		if (isset($_POST['deny']))
@@ -101,6 +109,7 @@ if (isset($_POST['cancelApp']))
 			
 			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
 			echo mysqli_error($link);	
+			
 		}
 	
 ?>
@@ -163,7 +172,7 @@ if (isset($_POST['cancelApp']))
 	   <!--end rating -->
 	    <?php echo nl2br($desc); ?>
 	    <h5 style="color:gray"><i>Технологии: <?php echo $tech; ?></i></h5>
-	    <h5 style="color:gray"><i><?php echo "Клучни зборови: " . $keyw; ?></i></h5>
+	  
 	  	<?php  if ($najavenID!=$leaderID) {?>
 	  	<form action="" method="post">
 	    <?php 
@@ -264,6 +273,7 @@ if (isset($_POST['cancelApp']))
 	<div id="result_p">
 		<?php 
 		$sql=mysqli_query($link, "select commentID,UserID,Text,Username,date(Time) as d  from comments c inner join users u on u.UserID=c.idUser where idIdea='$ideaId' order by Time desc limit 0,2");
+		
 		while($row=mysqli_fetch_assoc($sql))
 		{ 
 			$userId=$row['UserID'];
@@ -282,9 +292,12 @@ if (isset($_POST['cancelApp']))
 		<?php } ?>
 		<input type="hidden" id="result_no" value="2">
 	</div>
-		  <input type="button" class="btn btn-primary pull-right" style="width: 30%;<?php if($row['UserID']==null || isset($row['UserID'])) echo "visibility:hidden;"; ?>" value="Повеќе" onclick="loadmoreC()" />
+	<?php 
+	$sql=mysqli_query($link, "select *  from comments c inner join users u on u.UserID=c.idUser where idIdea='$ideaId'");
+	if (mysqli_num_rows($sql)>2)
+		echo  '<button class="btn btn-primary pull-right" style="width: 30%; color:white;  value="Повеќе" onclick="loadmoreC()">Повеќе</button>';
 		
-	
+	?>
 
 
 	<!-- comments end -->
@@ -298,6 +311,11 @@ if (isset($_POST['cancelApp']))
 
 </div>
 <br /><br /> <br />
+<script>
+	$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
  <script>
 	$(function() {
 
@@ -343,11 +361,7 @@ if (isset($_POST['cancelApp']))
 		  });
 		}
 	</script>
-	<script>
-	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip(); 
-	});
-	</script>
+
 	 <script>
 	  
 	  $('li.dropdown.mega-dropdown a').on('click', function (event) {

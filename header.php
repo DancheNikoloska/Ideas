@@ -17,7 +17,7 @@ if (isset($_POST['signUpButton']))
 	$about=$_POST['about'];
 	$password=$_POST['password'];
 	$image=$_FILES['image']['name'];
-	echo $image;
+	//echo $image;
 	$type=1;	
 if (!empty($_POST['name'])&&!empty($_POST['lastname'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['about']))
 {
@@ -64,9 +64,9 @@ else {
 		// if everything is ok, try to upload file
 		} else {
 		    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-		        echo "<div class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
+		        echo "<div style=\"z-index:100000; position:absolute;\"  class=\"alert alert-success alert-reg hide-alert col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Регистрацијата беше успешна!</div>";
 		    } else {
-		        echo "<div style=\"z-index:100000; position:absolute;\" class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика неможесе да се прикачи! </div> ";
+		        echo "<div style=\"z-index:100000; position:absolute;\" class=\"hide-alert alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Се извинуваме вашата слика не можеше да се прикачи! </div> ";
 		    }
 		}
 	}else{
@@ -211,7 +211,11 @@ if (isset($_POST['addIdeaSubmit'])){
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="images/covecence.jpg" width="80px" height="60px" style="margin-top:-3%;margin-left:-20%;" /></a>
+                    <a class="navbar-brand " href="index.php">
+                    	<img src="images/logo2.png" width="190px" height="70px"  style="margin-top:-7%;margin-left:-15%; " />
+                    </a>
+                    
+               		
                 </div>
                 <div class="collapse navbar-collapse">
                 	
@@ -278,12 +282,14 @@ if (isset($_POST['addIdeaSubmit'])){
 				      <input type="text" class="form-control" id="tehnologii" name="tech">
 				    </div>
 				  </div>
+				  
 				    <div class="form-group">
 				    <label class="col-sm-2 control-label">Клучни зборови</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="keywords" name="keyw">
+				      <input type="text" class="form-control" id="keywords" name="keywords">
 				    </div>
 				  </div>
+				  
 				 <br />
 				  <div class="form-group center">
 				    <div class="col-md-10 col-md-offset-1">
@@ -331,11 +337,11 @@ if (isset($_POST['addIdeaSubmit'])){
 									    <div role="tabpanel" class="tab-pane" id="Register"><br />
 									    	<form id="register" action="#" method="post" enctype="multipart/form-data">
 									    	 <input class="form-control" type="text" id="name" name="name" placeholder="Име*" required oninvalid="setCustomValidity('Името е задолжително')" oninput="setCustomValidity('')"><br />
-                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" required oninvalid="setCustomValidity('Презмето е задолжително')" oninput="setCustomValidity('')"><br />
+                                             <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Презиме*" required oninvalid="setCustomValidity('Презимето е задолжително')" oninput="setCustomValidity('')"><br />
                                            	<input class="form-control" type="text" id="username" name="username" placeholder="Корисничко име*" required oninvalid="setCustomValidity('Корисничкото име е задолжително')" oninput="setCustomValidity('')"><br />
                                             <span style="float: right;margin-top: -20%;margin-right: 2%;" id="user-result"></span>
                                             <input class="form-control" type="password" id="password" name="password" placeholder="Лозинка*" required oninvalid="setCustomValidity('Лозинката е задолжителна')" oninput="setCustomValidity('')"><br />
-                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" required oninvalid="setCustomValidity('Задолжителен е валиден емаил')" oninput="setCustomValidity('')"><br />
+                                             <input class="form-control" type="email" id="email" name="email" placeholder="Емаил*" required oninvalid="setCustomValidity('Внесете валиден емаил')" oninput="setCustomValidity('')"><br />
                                              <textarea class="form-control" type="text" id="about" name="about" placeholder="За Вас*" required oninvalid="setCustomValidity('Задолжително е нешто за вас')" oninput="setCustomValidity('')"></textarea><br />
                                              <input readonly="true" id="fileText" style="width: 65% !important;">
 											 <button class="btn" style="color: white; background-color: #5CB8E6;" onclick="document.getElementById('fileID').click(); return false;" />Слика</button>

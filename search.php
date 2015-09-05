@@ -19,12 +19,12 @@ if (isset($_POST['sending']))
 	$data=strtolower($data);
 	if (!empty($data)){
 		if ($q==1){
-		$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Rating desc";
+		$sql="Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Description COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Rating desc";
 			$query=mysqli_query($link,$sql);
 			
 		}
 		else if($q==2){
-			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Date desc");
+			$query=mysqli_query($link,"Select * from ideas i inner join users u on u.UserID=i.LeaderID where (Title COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Keywords COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Technologies COLLATE UTF8_GENERAL_CI LIKE '%$data%') or (Description COLLATE UTF8_GENERAL_CI LIKE '%$data%') order by i.Date desc");
 		   
 		}
 		}

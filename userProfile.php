@@ -2,7 +2,7 @@
 <?php 
 include_once 'header.php';
 ?>
-<script src="js/jquery.min.js"></script>
+<!--<script src="js/jquery.min.js"></script>-->
 <script src="js/jquery.form.js"></script>
 <script>
 $(document).on('change', '#image_upload_file', function () {
@@ -109,12 +109,16 @@ if (isset($_POST['newProjectSubmit']))
 	echo mysqli_error($link);
 	else{
 		echo "<div id=\"projectAlert\" class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Проектот беше додаден. </div>";
+		$url1=$_SERVER['REQUEST_URI'];
+		header("Refresh: 2; URL=$url1");
+		
 			
 	}
 }
 else{
 		echo "<div id=\"projectAlert2\" class=\"alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Пополнете ги сите полиња. </div>";
-			
+		$url1=$_SERVER['REQUEST_URI'];
+		header("Refresh: 2; URL=$url1");
 	}
 
 }
@@ -132,12 +136,14 @@ if (isset($_POST['newExpSubmit']))
 	echo mysqli_error($link);
 	else{
 		echo "<div id=\"projectAlert\" class=\"alert alert-success alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-ok\"> </span>  Искуството беше додадено. </div>";
-			
+		$url1=$_SERVER['REQUEST_URI'];
+		header("Refresh: 2; URL=$url1");
 	}
 }
 else{
 		echo "<div id=\"projectAlert2\" class=\"alert alert-danger alert-reg col-md-4 center\" role=\"alert\"><span class=\"glyphicon glyphicon-remove\"> </span>  Пополнете ги сите полиња. </div>";
-			
+		$url1=$_SERVER['REQUEST_URI'];
+		header("Refresh: 2; URL=$url1");	
 	}
 
 }
@@ -148,6 +154,8 @@ $id=$_GET['delete'];
 
 $sql = "delete from userprojects where uProjectID='$id'";
 mysqli_query($link, $sql);
+$url1=$_SERVER['REQUEST_URI'];
+header("Refresh: 2; URL=$url1");
 }
 //delete experiences
 if(isset($_GET['delete2']))
@@ -156,6 +164,8 @@ $id=$_GET['delete2'];
 
 $sql = "delete from userexperiences where uExperienceID='$id'";
 mysqli_query($link, $sql);
+$url1=$_SERVER['REQUEST_URI'];
+header("Refresh: 2; URL=$url1");
 }
 
 //deleteIdea
@@ -168,7 +178,8 @@ if (isset($_POST['deleteIdea']))
 	
 		$ideaId=$_REQUEST['ideaId'];
 		mysqli_query($link, "delete from ideas where ideaID='$ideaId'");
-	
+		$url1=$_SERVER['REQUEST_URI'];
+		header("Refresh: 2; URL=$url1");
 	?>
 	}
 	</script>
@@ -201,7 +212,7 @@ if (isset($_POST['deleteIdea']))
                     <br />
                     </div>
                   <div class="col-md-8">
-                  	  <div class="alert alert-info" style="height: 50%;background-color: #BEE3F5 !important;border-color:#BEE3F5 !important;color:#666 !important ">
+                  	  <div class="alert alert-info" style="height: 220px;background-color: #BEE3F5 !important;border-color:#BEE3F5 !important;color:#666 !important ">
                         <h2><?php echo $firstname.' '.$lastname;  ?> </h2>
                         <h4><?php echo $username; ?> </h4>
                         <p>
@@ -210,9 +221,9 @@ if (isset($_POST['deleteIdea']))
                         <p><i><?php echo $email; ?></i></p>
                     </div>
                     <div>
-                    	 <a href="mailto:<?php echo $email; ?>" class="btn btn-social btn-google" data-toggle="tooltip" title="<?php echo $email; ?>">
+                    	 <a href="mailto:<?php echo $email; ?>" class="btn btn-social btn-google" data-toggle="tooltip" data-placement="top" title="<?php echo $email; ?>">
                             <i class="fa fa-envelope-o"></i>&nbsp; Email </a>
-                        <a href="https://slack.com/create#email" class="btn btn-default" data-toggle="tooltip" title="Slack chat">
+                        <a href="https://slack.com/create#email" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Slack chat">
                             <i class="fa fa-slack"></i>&nbsp; Slack </a>
                     </div><br />
               
@@ -262,8 +273,10 @@ if (isset($_POST['deleteIdea']))
       <button id="IdBtn" class="btn col-md-12" style="margin-top: -2.5%;"><b>Идеи</b></button>
       <div id="IdContent" class="row" style="display: none; margin-top: 2.5%">  
       <div style="width:49%; margin-left: 1.2% !important" class="col-md-6" > 
-      	<h5>Мои идеи:</h5>
-        <?php $sql=mysqli_query($link, "select * from ideas where LeaderID='$userId'");
+      	<?php $sql=mysqli_query($link, "select * from ideas where LeaderID='$userId'");
+      	if (mysqli_num_rows($sql)>0)      	
+      	
+      	echo "<h5>Мои идеи:</h5>";       
 		
 		while($row=mysqli_fetch_assoc($sql))
 		{ 
@@ -272,7 +285,7 @@ if (isset($_POST['deleteIdea']))
 			<form action="?id=<?php echo $userId; ?>&ideaId=<?php echo $ideaID; ?>" method="post">	
 			<div class="panel panel-default row">
 			<div class="panel-footer" style="background-color:white;"><span class="glyphicon glyphicon-user">&nbsp </span><a href="ideaDetails.php?ideaId=<?php echo $ideaID;?>"><?php echo $title; ?></a>
-			<button style="background-color: transparent; border: 0px" name="deleteIdea" class="pull-right" type="submit" value="X"><span class="glyphicon glyphicon-remove"></span></button>
+			<button data-toggle="tooltip" data-placement="top" title="Избриши идеја" style="background-color: transparent; border: 0px" name="deleteIdea" class="pull-right" type="submit" value="X"><span  class="glyphicon glyphicon-remove"></span></button>
 			</div>
 			
 			</div>
@@ -285,8 +298,10 @@ if (isset($_POST['deleteIdea']))
         
        </div>
         <div style="width:49%" class="col-md-6 pull-right">
-       	<h5>Член во тим:</h5> 
+       	
         <?php $sql=mysqli_query($link, "select i.Title,t.IdeaID from team t inner join ideas i on t.IdeaId=i.IdeaId where UserID='$userId'");
+		if (mysqli_num_rows($sql)>0)
+		echo "<h5>Член во тим:</h5>";
 		while($row=mysqli_fetch_assoc($sql))
 		{ 
 			$title=$row['Title'];	
@@ -320,7 +335,7 @@ if (isset($_POST['deleteIdea']))
 			?>
         <div class="panel panel-default record" id="record-<?php echo $prId; ?>">
         	<div class="panel-heading"><?php echo "<b>".$title."</b> <br />".$year; ?> </div>
-        	<div class="panel-body"><?php echo $desc."<br />Користени технологии: ".$tech; ?></div>
+        	<div class="panel-body"><?php echo $desc."<i><br />Користени технологии: ".$tech."</i>"; ?></div>
         	 <?php if ($userId==$najavenID) {?>
         <a href="?id=<?php echo $userId."&delete=".$prId; ?>" class="delete"><span class="glyphicon glyphicon-remove pull-right" style="cursor:pointer; margin-top: -2%;margin-right: 1%"></span></a>
        	<?php } ?>
@@ -433,10 +448,13 @@ if (isset($_POST['deleteIdea']))
  <?php include_once 'footer.php'; ?>
 
    
-    
+     <script>
+      $("[data-toggle='tooltip']").tooltip();
+    </script>
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script> 
+   
     <script>
 	  
 	  $('li.dropdown.mega-dropdown a').on('click', function (event) {
@@ -450,13 +468,9 @@ if (isset($_POST['deleteIdea']))
 	  });
 	  
     </script>
-    <script>
-	$(document).ready(function(){
-	    $('[data-toggle="tooltip"]').tooltip();   
-	});
-	</script>
+ 
 	<script>
-		setTimeout(fade_out, 3000);
+		setTimeout(fade_out, 2000);
 		function fade_out() {
 		  $("#projectAlert").fadeOut().empty();
 		  $("#projectAlert2").fadeOut().empty();
@@ -483,6 +497,7 @@ if (isset($_POST['deleteIdea']))
 		});
 		});
    </script>
+
    <script>
 	$(function() {
 
