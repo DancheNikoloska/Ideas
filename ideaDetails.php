@@ -1,5 +1,5 @@
 <?php 
-include_once 'database.php';
+include_once 'php_scripts/database.php';
 include_once 'header.php';
 
 if ($_SESSION['user']==true&&isset($_SESSION['user'])){
@@ -71,11 +71,11 @@ while ($row=mysqli_fetch_assoc($res))
 
 if (isset($_POST['apliciraj']))
 {
-	$query="select * from applications where UserID='$najavenID' and IdeaID='$ideaId'";
+	$query="select * from applications where UserIDapp='$najavenID' and IdeaIDapp='$ideaId'";
 	$result=mysqli_query($link, $query);
 	if (mysqli_num_rows($result)==0){
-	mysqli_query($link, "Insert into applications values('$najavenID','$ideaId',0)");
-	//echo mysqli_error($link);
+	mysqli_query($link, "Insert into applications values(null,'$najavenID','$ideaId',0)");
+	echo mysqli_error($link);
 	
 	}
 }
@@ -83,7 +83,7 @@ if (isset($_POST['apliciraj']))
 //cancel application
 if (isset($_POST['cancelApp']))
 {
-	if (mysqli_query($link, "Delete from applications where UserID='$najavenID' and IdeaID='$ideaId'")==false)
+	if (mysqli_query($link, "Delete from applications where UserIDapp='$najavenID' and IdeaIDapp='$ideaId'")==false)
 	echo mysqli_error($link);
 	
 	
@@ -96,7 +96,7 @@ if (isset($_POST['cancelApp']))
 			$idea=$_REQUEST['ideaId'];
 			if (mysqli_query($link, "insert into team values('$idea','$user',3)")==false)
 			echo mysqli_error($link);	
-			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
+			if (mysqli_query($link, "delete from applications where UserIDapp='$user' and IdeaIDapp='$idea'")==false)
 			echo mysqli_error($link);	
 			
 			
@@ -107,7 +107,7 @@ if (isset($_POST['cancelApp']))
 			$user=$_REQUEST['user'];
 			$idea=$_REQUEST['ideaId'];
 			
-			if (mysqli_query($link, "delete from applications where UserID='$user' and IdeaID='$idea'")==false)
+			if (mysqli_query($link, "delete from applications where UserIDapp='$user' and IdeaIDapp='$idea'")==false)
 			echo mysqli_error($link);	
 			
 		}
@@ -176,7 +176,7 @@ if (isset($_POST['cancelApp']))
 	  	<?php  if ($najavenID!=$leaderID) {?>
 	  	<form action="" method="post">
 	    <?php 
-	    $app=mysqli_query($link, "select * from applications where UserID='$najavenID' and IdeaID='$ideaId'");
+	    $app=mysqli_query($link, "select * from applications where UserIDapp='$najavenID' and IdeaIDapp='$ideaId'");
 		if (mysqli_num_rows($app)>0){
 	    ?>
 	    <input type="submit" name="cancelApp" class="pull-right btn btn-primary" value="Откажи"/>
@@ -223,14 +223,14 @@ if (isset($_POST['cancelApp']))
 	</ul>
 	</div><?php } ?><br /><br />
 	<!-- applications from users -->
-	<?php $apl=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserID where a.IdeaID='$ideaId'") ;
+	<?php $apl=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserIDapp where a.IdeaIDapp='$ideaId'") ;
 	 
 	?>
 	<?php  if ($najavenID==$leaderID&&mysqli_num_rows($apl)>0) {?>
 	<h4>Аплицирале:</h4><hr>
 	<div class="col-md-12">
 	<?php 
-	$appUsers=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserID where a.IdeaID='$ideaId'");
+	$appUsers=mysqli_query($link, "select * from applications a inner join users u on u.UserID=a.UserIDapp where a.IdeaIDapp='$ideaId'");
 	while ($row=mysqli_fetch_assoc($appUsers)){
 		$userF=$row['FirstName'];
 		$userL=$row['LastName'];
@@ -344,7 +344,7 @@ if (isset($_POST['cancelApp']))
 		  var val = document.getElementById("result_no").value;
 		  $.ajax({
 		  type: 'post',
-		  url: ('moreComments.php?ideaId=<?php echo $ideaId; ?>'),
+		  url: ('php_scripts/moreComments.php?ideaId=<?php echo $ideaId; ?>'),
 		  dataType: 'html',
 		  data: {
 		    "getresult":val

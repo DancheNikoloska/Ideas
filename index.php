@@ -9,7 +9,7 @@
 	  
 	  $.ajax({
 	  type: 'post',
-	  url: 'fetch.php',
+	  url: 'php_scripts/fetch.php',
 	  data: {
 	  getresult:val,
 	  "order": document.getElementById("orderFilter").value
@@ -28,7 +28,7 @@
 		function getdata(str,str2){
 			$.ajax({
 				type:'post',
-				url:'search.php',
+				url:'php_scripts/search.php',
 				data:{"sending":str,"orderIdeas":str2},
 				success:function(data){document.getElementById("result_para").innerHTML=data;
 				
@@ -46,7 +46,7 @@
 		function orderBy(str,str2){
 			$.ajax({
 				type:'post',
-				url:'search.php',
+				url:'php_scripts/search.php',
 				data:{"orderIdeas":str,"sending":str2},
 				success:function(data){document.getElementById("result_para").innerHTML=data;
 				document.getElementById("result_no").value= 6;}
@@ -59,44 +59,23 @@
 <?php include 'header.php'; 
 //echo $_SESSION['user'];
 ?>
+
 <!-- modalLoginEnd -->
-    <section class="slider" style="margin:auto">
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-		  <!-- Indicators -->
-		  <ol class="carousel-indicators">
-		    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-		    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-		    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-		  </ol>
+    <section style="margin:auto">
 		
-		  <!-- Wrapper for slides -->
-		  <div class="carousel-inner" role="listbox">
-		    <div class="item active" style="width: 100%; height: 100%;">
+		    <div  style="width: 100%; height: 100%;">
 		    
 		  
-		     <img class="img img-responsive" src="images/final.png" alt="Responsive image" "> 
-		    
-		      <div class="carousel-caption">
-		        
-		      </div>
-		    </div>
-		  <!--   <div class="item ">
-		      <img src="" alt="">
-		      <div class="carousel-caption">
-		        
-		      </div>
-		    </div>
-		       <div class="item ">
-		      <img src="" alt="">
-		      <div class="carousel-caption">
-		        
-		      </div>
-		    </div> -->
-		 
-		   
-		  	    
-		  </div>
-		</div>
+		     <img style="position:absolute;" class="img img-responsive" src="images/back3.jpg" alt="Responsive image" ">
+		     
+		    	<svg width="100%" height="500" style="position:relative;">
+				  <text font-family=Georgia, serif; id="text1" x="50%" y="40%" fill="#B2B2B2" opacity="0.6" stroke="#666" stroke-width="1" font-size="50"> Вредноста на идејата</text>
+				  <text font-family=Georgia, serif; id="text2"  x="64%" y="55%" fill="#B2B2B2" opacity="0.6" stroke="#666" stroke-width="1" font-size="50"> е во</text>
+				   <text font-family=Georgia, serif; id="text3"  x="50%" y="70%" fill="#B2B2B2" opacity="0.6" stroke="#666" stroke-width="1" font-size="50"> нејзината реализација.</text>
+				</svg>
+			
+		    </div><br /><br />
+		
     </section><!--/#main-slider-->
 
     <section id="ideas">
@@ -163,14 +142,15 @@
            
         
          
-        </div><!--/.container--><br /><br />
+        </div><!--/.container--><br />
          <!--button More -->
-         <div class="center">
-         	  <input type="button" id="load" class="btn btn-primary" style="width: 9%" value="Повеќе" onclick="loadmore()" />
-         </div><br /><br />
-       
+         
+          
+         <input type="button" id="load" class="btn btn-primary col-md-1" style="margin-left:45%;" value="Повеќе" onclick="loadmore()" />
+     <br><br><br>
     </section><!--/#services-->
-
+    
+	 
   
     <section id="about-us">
         <div class="container">
@@ -204,7 +184,7 @@
                         <h1>Контакт</h1>
                         
                         <div class="status alert alert-success" style="display: none"></div>
-                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
+                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="php_scripts/sendemail.php" role="form">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -278,7 +258,21 @@
     
     <script src="js/jquery.isotope.min.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
+       <script>
+$(document).ready(function(){
+        $("#text1").hide();
+        $("#text1").fadeIn(3000);
+        $("#text2").hide();
+        $("#text2").fadeIn(7000);
+         $("#text3").hide();
+        $("#text3").fadeIn(11000);
+      
+    });
+
+</script>
+
     <script src="js/main.js"></script> 
+
     <script>
 	  
 	  $('li.dropdown.mega-dropdown a').on('click', function (event) {

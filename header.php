@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include 'database.php';
+include 'php_scripts/database.php';
 session_start();
 if (!isset($_SESSION['user'])){
 $_SESSION['user']="";
@@ -157,6 +157,7 @@ if (isset($_POST['addIdeaSubmit'])){
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
+    
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -198,7 +199,7 @@ if (isset($_POST['addIdeaSubmit'])){
   	</script>
 </head><!--/head-->
 
-<body data-spy="scroll" data-target="#navbar" data-offset="0">
+<body data-spy="scroll" data-target="#navbar" data-offset="0" >
 	
     <header id="header" role="banner">
     	
@@ -230,7 +231,7 @@ if (isset($_POST['addIdeaSubmit'])){
                         	<ul class="dropdown-menu" style="width: 100%" id="logout">
                         		<li class="dropdownHover"><a href="userProfile.php?id=<?php echo $_SESSION['userID']; ?>">Мојот профил</a></li>
                         		<li role="separator" class="divider"></li>
-                        		<li class="dropdownHover"><a href="logout.php">Одјави се</a></li>
+                        		<li class="dropdownHover"><a href="php_scripts/logout.php">Одјави се</a></li>
                         	</ul>
                         	
                         </li>
@@ -286,7 +287,7 @@ if (isset($_POST['addIdeaSubmit'])){
 				    <div class="form-group">
 				    <label class="col-sm-2 control-label">Клучни зборови</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="keywords" name="keywords">
+				      <input type="text" class="form-control" id="keyw" name="keyw">
 				    </div>
 				  </div>
 				  
@@ -365,7 +366,7 @@ $("#username").keyup(function (e) { //user types username on inputfiled
     if(username.length==0){
     	$("#user-result").html("");
     }else{
-    $.post('check_username.php', {'username':username}, function(data) { //make ajax call to check_username.php
+    $.post('php_scripts/check_username.php', {'username':username}, function(data) { //make ajax call to check_username.php
     $("#user-result").html(data); //dump the data received from PHP page
     });
     }

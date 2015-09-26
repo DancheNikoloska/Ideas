@@ -39,7 +39,7 @@ $('#image_upload_form').ajaxForm({
 });
 </script>
 <?php
-include_once 'database.php';
+include_once 'php_scripts/database.php';
 if ($_SESSION['user']==true&&isset($_SESSION['user'])){
 $najavenID=$_SESSION["userID"];}
 else{$najavenID="";}
@@ -192,7 +192,7 @@ if (isset($_POST['deleteIdea']))
             <div class="row">
                 <div class="col-md-4">
                 	<div id="imgContainer">
-					  <form class="col-md-12" enctype="multipart/form-data" action="image_upload_demo_submit.php" method="post" name="image_upload_form" id="image_upload_form">
+					  <form class="col-md-12" enctype="multipart/form-data" action="php_scripts/image_upload_demo_submit.php" method="post" name="image_upload_form" id="image_upload_form">
 					    <div style="width: 240px; height:220px; margin-left: 15%;" class="col-md-12" id="imgArea"><img style="height:220px;width:400px;" class="img img-responsive center" src="<?php echo $img; ?>">
 					      <div class="progressBar">
 					        <div class="bar"></div>
